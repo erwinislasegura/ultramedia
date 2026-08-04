@@ -1,0 +1,15 @@
+-- Portal de clientes y venta individual / set completo.
+CREATE TABLE IF NOT EXISTS customers(
+ id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,name VARCHAR(160) NOT NULL,email VARCHAR(190) NOT NULL UNIQUE,
+ password_hash VARCHAR(255) NOT NULL,phone VARCHAR(40) NULL,rut VARCHAR(20) NULL,status ENUM('active','inactive') NOT NULL DEFAULT 'active',
+ last_login_at DATETIME NULL,created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE IF NOT EXISTS photo_sets(
+ id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,event_id INT UNSIGNED NOT NULL,name VARCHAR(180) NOT NULL,bib_number VARCHAR(30) NULL,
+ individual_enabled TINYINT(1) NOT NULL DEFAULT 1,set_enabled TINYINT(1) NOT NULL DEFAULT 1,set_price INT UNSIGNED NOT NULL DEFAULT 19990,
+ status ENUM('active','hidden') NOT NULL DEFAULT 'active',created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+ INDEX(event_id),INDEX(bib_number),CONSTRAINT fk_set_event FOREIGN KEY(event_id) REFERENCES events(id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+ALTER TABLE photos ADD COLUMN set_id BIGINT UNSIGNED NULL AFTER event_id,ADD INDEX idx_photos_set(set_id),ADD CONSTRAINT fk_photo_set FOREIGN KEY(set_id) REFERENCES photo_sets(id) ON DELETE SET NULL;
+ALTER TABLE orders ADD COLUMN customer_id BIGINT UNSIGNED NULL AFTER id,ADD INDEX idx_orders_customer(customer_id),ADD CONSTRAINT fk_order_customer FOREIGN KEY(customer_id) REFERENCES customers(id) ON DELETE SET NULL;
+ALTER TABLE order_items MODIFY photo_id BIGINT UNSIGNED NULL,ADD COLUMN set_id BIGINT UNSIGNED NULL AFTER photo_id,ADD COLUMN item_type ENUM('photo','set') NOT NULL DEFAULT 'photo' AFTER set_id,ADD COLUMN item_title VARCHAR(180) NULL AFTER item_type,ADD INDEX idx_order_item_set(set_id),ADD CONSTRAINT fk_order_item_set FOREIGN KEY(set_id) REFERENCES photo_sets(id) ON DELETE RESTRICT;
