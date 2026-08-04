@@ -25,3 +25,4 @@ INSERT INTO orders(customer_name,customer_email,total,status,download_token,paid
 ('Matías Rojas','matias@example.com',4990,'paid','demo00000000000000000000000000000000000000000002',DATE_SUB(NOW(),INTERVAL 3 DAY)),
 ('Valentina Díaz','vale@example.com',14970,'paid','demo00000000000000000000000000000000000000000003',NOW());
 INSERT INTO order_items(order_id,photo_id,unit_price) VALUES(1,1,4990),(1,2,4990),(2,3,4990),(3,4,4990),(3,5,4990),(3,6,4990);
+INSERT INTO homepage_cta(id,event_id,eyebrow,title,description,button_text,button_url,image_url,active) VALUES(1,1,'EVENTO DESTACADO','TRAIL VOLCÁN ANTUCO 2026','Ya están disponibles las fotografías oficiales del evento.','VER FOTOGRAFÍAS','#fotos','https://images.unsplash.com/photo-1552674605-db6ffd4facb5?auto=format&fit=crop&w=1800&q=88',1);
