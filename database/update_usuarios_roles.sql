@@ -28,8 +28,3 @@ INSERT INTO roles(name,slug,permissions,is_system) VALUES
 ('Editor fotográfico','editor-fotografico',JSON_ARRAY('dashboard.view','photos.manage'),1),
 ('Ventas','ventas',JSON_ARRAY('dashboard.view','orders.manage'),1)
 ON DUPLICATE KEY UPDATE name=VALUES(name),permissions=VALUES(permissions);
--- Usuario demo: admin@ultramedia.cl / password
-INSERT INTO users(role_id,name,email,password_hash,status)
-SELECT id,'Administrador Ultra','admin@ultramedia.cl','$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2uheWG/igi.','active' FROM roles WHERE slug='administrador'
-ON DUPLICATE KEY UPDATE role_id=VALUES(role_id),name=VALUES(name);
-
