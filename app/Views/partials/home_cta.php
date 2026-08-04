@@ -1,0 +1,2 @@
+<?php if(!empty($cta)):?><section class="event-cta" style="background-image:linear-gradient(90deg,#070a0bec,#070a0b55),url('<?=htmlspecialchars($cta['image_url'])?>')"><div><span><?=htmlspecialchars($cta['eyebrow'])?></span><h2><?=htmlspecialchars($cta['title'])?></h2><p><?=htmlspecialchars($cta['description'])?></p><a href="<?=htmlspecialchars($cta['button_url'])?>"><?=htmlspecialchars($cta['button_text'])?> →</a></div></section><?php endif;?>
+
