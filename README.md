@@ -32,6 +32,7 @@ Después reinicia Apache desde XAMPP. El usuario del servidor debe poder escribi
 
 Si la base ya estaba instalada, importa únicamente `database/update_usuarios_roles.sql`.
 Para habilitar login, pedidos completos y CTA configurable, importa además `database/update_login_pedidos_cta.sql`. Luego ejecuta `php database/create_admin.php` para crear o restablecer el administrador sin publicar credenciales.
+Para habilitar marca de agua por texto o imagen, importa `database/update_watermark_security.sql`.
 
 ## Seguridad de archivos
 
