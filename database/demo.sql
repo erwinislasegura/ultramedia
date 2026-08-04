@@ -2,7 +2,6 @@ INSERT INTO roles(name,slug,permissions,is_system) VALUES
 ('Administrador','administrador',JSON_ARRAY('dashboard.view','photos.manage','orders.manage','users.manage','roles.manage'),1),
 ('Editor fotográfico','editor-fotografico',JSON_ARRAY('dashboard.view','photos.manage'),1),
 ('Ventas','ventas',JSON_ARRAY('dashboard.view','orders.manage'),1);
-INSERT INTO users(role_id,name,email,password_hash,status) SELECT id,'Administrador Ultra','admin@ultramedia.cl','$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2uheWG/igi.','active' FROM roles WHERE slug='administrador';
 INSERT INTO events(name,slug,sport,event_date,location) VALUES
 ('Trail Volcán Antuco','trail-volcan-antuco','Running','2026-08-02','Antuco'),
 ('Liga Urbana','liga-urbana','Fútbol','2026-07-26','Concepción'),
