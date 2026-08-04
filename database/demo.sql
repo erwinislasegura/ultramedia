@@ -6,6 +6,8 @@ INSERT INTO events(name,slug,sport,event_date,location) VALUES
 ('Trail Volcán Antuco','trail-volcan-antuco','Running','2026-08-02','Antuco'),
 ('Liga Urbana','liga-urbana','Fútbol','2026-07-26','Concepción'),
 ('Desafío Cordillerano','desafio-cordillerano','Ciclismo','2026-07-19','Biobío');
+INSERT INTO photo_sets(event_id,name,bib_number,individual_enabled,set_enabled,set_price) VALUES
+(1,'Set Trail · Competidor 184','184',1,1,19990),(2,'Set Liga Urbana · Jornada Final',NULL,1,1,24990),(3,'Set Desafío Cordillerano',NULL,1,1,21990);
 INSERT INTO photos(event_id,title,bib_number,price,original_path,preview_path,file_size) VALUES
 (1,'Sprint en la cumbre','184',4990,'assets/descarga-demo.txt','https://images.unsplash.com/photo-1552674605-db6ffd4facb5?auto=format&fit=crop&w=900&q=85',5242880),
 (1,'Equipo en ruta','214',4990,'assets/descarga-demo.txt','https://images.unsplash.com/photo-1540539234-c14a20fb7c7b?auto=format&fit=crop&w=900&q=85',4980736),
@@ -19,6 +21,9 @@ INSERT INTO photos(event_id,title,bib_number,price,original_path,preview_path,fi
 (3,'Pelotón compacto','511',4990,'assets/descarga-demo.txt','https://images.unsplash.com/photo-1486218119243-13883505764c?auto=format&fit=crop&w=900&q=85',6300000),
 (1,'Último kilómetro','73',4990,'assets/descarga-demo.txt','https://images.unsplash.com/photo-1592656094267-764a45160876?auto=format&fit=crop&w=900&q=85',5100000),
 (2,'Celebración final','57',4990,'assets/descarga-demo.txt','https://images.unsplash.com/photo-1534158914592-062992fbe900?auto=format&fit=crop&w=900&q=85',5450000);
+UPDATE photos SET set_id=1 WHERE event_id=1;
+UPDATE photos SET set_id=2 WHERE event_id=2;
+UPDATE photos SET set_id=3 WHERE event_id=3;
 INSERT INTO orders(customer_name,customer_email,total,status,download_token,paid_at) VALUES
 ('Camila Soto','camila@example.com',9980,'paid','demo00000000000000000000000000000000000000000001',DATE_SUB(NOW(),INTERVAL 6 DAY)),
 ('Matías Rojas','matias@example.com',4990,'paid','demo00000000000000000000000000000000000000000002',DATE_SUB(NOW(),INTERVAL 3 DAY)),
