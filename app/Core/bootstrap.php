@@ -13,6 +13,7 @@ function url(string $path=''):string{
  return rtrim($base,'/').'/'.ltrim($path,'/');
 }
 function media(string $path):string{return preg_match('~^https?://~',$path)?$path:url($path);}
+function preview_url(array $photo):string{$path=(string)($photo['preview_path']??'');if(preg_match('~^https?://~',$path))return $path;$id=(int)($photo['id']??$photo['photo_id']??0);return $id?url('vista-previa?id='.$id):media($path);}
 function redirect(string $path):never{header('Location: '.url($path));exit;}
 function money(int $n):string{return '$'.number_format($n,0,',','.');}
 function csrf():string{$_SESSION['csrf']??=bin2hex(random_bytes(24));return $_SESSION['csrf'];}
