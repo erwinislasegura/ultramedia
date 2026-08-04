@@ -1,0 +1,7 @@
+<?php
+namespace App\Controllers;
+use App\Core\Database;use App\Services\PaymentSettings;use Throwable;
+final class FlowSettingsController{
+ public function index():void{$settings=PaymentSettings::flow()?:['active'=>0,'environment'=>'sandbox','api_key'=>''];admin_view('admin/flow-settings',['settings'=>$settings,'pageTitle'=>'Pasarela Flow','adminSection'=>'flow']);}
+ public function save():never{verify_csrf();$environment=($_POST['environment']??'sandbox')==='production'?'production':'sandbox';$apiKey=trim($_POST['api_key']??'');$secret=trim($_POST['secret_key']??'');$current=PaymentSettings::flow();if($apiKey===''||($secret===''&&!$current)){$_SESSION['error']='Debes ingresar la API Key y Secret Key de Flow.';redirect('/admin/flow');}try{$encrypted=$secret!==''?PaymentSettings::encrypt($secret):(string)$current['secret_key_encrypted'];$s=Database::db()->prepare("INSERT INTO payment_settings(provider,active,environment,api_key,secret_key_encrypted) VALUES('flow',?,?,?,?) ON DUPLICATE KEY UPDATE active=VALUES(active),environment=VALUES(environment),api_key=VALUES(api_key),secret_key_encrypted=VALUES(secret_key_encrypted)");$s->execute([isset($_POST['active'])?1:0,$environment,$apiKey,$encrypted]);$_SESSION['success']='Configuración de Flow guardada correctamente.';}catch(Throwable $e){error_log('Flow settings: '.$e->getMessage());$_SESSION['error']='No fue posible guardar la configuración. Verifica la migración de base de datos.';}redirect('/admin/flow');}
+}
