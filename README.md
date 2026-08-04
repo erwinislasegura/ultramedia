@@ -25,7 +25,7 @@ Después reinicia Apache desde XAMPP. El usuario del servidor debe poder escribi
 
 - `/`: tienda con búsqueda y cuadrícula 4 × 3
 - `/foto?id=1`: detalle
-- `/carrito`, `/checkout`: flujo de compra demo
+- `/carrito`, `/checkout`: flujo de compra conectado a Flow
 - `/admin`: dashboard de ventas y memoria
 - `/admin/fotos`: carga por lotes, marca de agua y control de descargas
 - `/admin/usuarios`: gestión de usuarios, estados, roles y permisos
@@ -33,7 +33,23 @@ Después reinicia Apache desde XAMPP. El usuario del servidor debe poder escribi
 Si la base ya estaba instalada, importa únicamente `database/update_usuarios_roles.sql`.
 Para habilitar login, pedidos completos y CTA configurable, importa además `database/update_login_pedidos_cta.sql`. Luego ejecuta `php database/create_admin.php` para crear o restablecer el administrador sin publicar credenciales.
 Para habilitar marca de agua por texto o imagen, importa `database/update_watermark_security.sql`.
+Para habilitar Flow en una base existente, importa `database/update_flow_payments.sql`.
+
+## Configuración de Flow
+
+1. Crea primero una cuenta de prueba en `sandbox.flow.cl` y copia su API Key y Secret Key.
+2. Configura `APP_URL` con la URL pública HTTPS exacta del proyecto. Flow no puede confirmar pagos contra `localhost`.
+3. Define estas variables en cPanel o edita `config/config.php` sin publicar las claves en Git:
+
+```text
+FLOW_ENV=sandbox
+FLOW_API_KEY=tu_api_key
+FLOW_SECRET_KEY=tu_secret_key
+APP_URL=https://tudominio.cl
+```
+
+Para producción cambia `FLOW_ENV=production` y utiliza las credenciales productivas. PHP debe tener cURL habilitado. Las URLs de confirmación y retorno se generan automáticamente desde `APP_URL`.
 
 ## Seguridad de archivos
 
-Los originales se guardan en `storage/originals`, bloqueado por `.htaccess`. Solo `/descarga` los entrega cuando existe un pedido pagado, el token coincide y la foto tiene la descarga habilitada. Las vistas previas son copias redimensionadas con marca de agua. Para producción agrega autenticación al panel y sustituye el pago demo por Webpay, Mercado Pago o Stripe con webhook verificado.
+Los originales se guardan en `storage/originals`, bloqueado por `.htaccess`. Solo `/descarga` los entrega cuando Flow confirmó el pedido como pagado, el token local coincide y la foto tiene la descarga habilitada. Las vistas previas son copias redimensionadas con marca de agua. El callback nunca confía en datos enviados por el navegador: vuelve a consultar el estado firmado en la API de Flow y valida pedido, monto y moneda.
