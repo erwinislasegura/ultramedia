@@ -35,6 +35,7 @@ Para habilitar login, pedidos completos y CTA configurable, importa además `dat
 Para habilitar marca de agua por texto o imagen, importa `database/update_watermark_security.sql`.
 Para habilitar Flow en una base existente, importa `database/update_flow_payments.sql`.
 Para administrar Flow desde el panel, importa también `database/update_flow_settings.sql` y abre `/admin/flow`.
+Para habilitar cuentas de clientes y venta de sets completos, importa `database/update_customers_sets.sql`.
 
 ## Configuración de Flow
 
@@ -47,7 +48,15 @@ APP_URL=https://tudominio.cl
 APP_KEY=una_clave_privada_larga_y_aleatoria
 ```
 
-El ambiente se cambia desde el panel. La Secret Key queda cifrada y no vuelve a mostrarse. `APP_KEY` protege ese cifrado; si no se define, el sistema deriva una clave desde la conexión de base de datos. PHP debe tener cURL y OpenSSL habilitados. Las URLs de confirmación y retorno se generan automáticamente desde `APP_URL`.
+El ambiente se cambia desde el panel. La Secret Key queda cifrada y no vuelve a mostrarse. `APP_KEY` protege ese cifrado; si no se define, el sistema deriva una clave desde la conexión de base de datos. PHP debe tener cURL, OpenSSL y ZipArchive habilitados. ZipArchive genera la descarga única de cada set completo. Las URLs de confirmación y retorno se generan automáticamente desde `APP_URL`.
+
+## Portal de clientes y modalidades de venta
+
+- `/mi-cuenta/login`: acceso de clientes.
+- `/mi-cuenta`: pedidos, estados y cambio de contraseña.
+- En checkout el comprador puede crear una cuenta opcionalmente.
+- Cada lote subido crea un set y permite activar venta individual, set completo o ambas modalidades.
+- Los pedidos pagados habilitan la foto original o un ZIP con todas las fotografías del set.
 
 ## Seguridad de archivos
 
