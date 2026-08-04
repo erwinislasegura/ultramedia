@@ -11,6 +11,8 @@ foreach([
  ['GET','/checkout','CheckoutController@index'],['POST','/checkout','CheckoutController@process'],['GET','/gracias','CheckoutController@thanks'],
  ['GET','/descarga','DownloadController@file'],['GET','/admin','AdminController@dashboard'],['GET','/admin/fotos','AdminController@photos'],
  ['POST','/admin/fotos','AdminController@upload'],['POST','/admin/fotos/descarga','AdminController@toggleDownload'],
+ ['GET','/admin/fotos/editar','AdminController@editPhoto'],['POST','/admin/fotos/editar','AdminController@updatePhoto'],
+ ['POST','/admin/fotos/estado','AdminController@togglePhotoStatus'],['POST','/admin/fotos/eliminar','AdminController@deletePhoto'],
  ['GET','/admin/usuarios','UserController@index'],['POST','/admin/usuarios/guardar','UserController@save'],
  ['POST','/admin/usuarios/eliminar','UserController@delete'],['POST','/admin/roles/guardar','UserController@saveRole'],
  ['GET','/admin/pedidos','OrderController@index'],['POST','/admin/pedidos/estado','OrderController@status'],
