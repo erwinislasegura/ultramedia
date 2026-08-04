@@ -34,21 +34,20 @@ Si la base ya estaba instalada, importa únicamente `database/update_usuarios_ro
 Para habilitar login, pedidos completos y CTA configurable, importa además `database/update_login_pedidos_cta.sql`. Luego ejecuta `php database/create_admin.php` para crear o restablecer el administrador sin publicar credenciales.
 Para habilitar marca de agua por texto o imagen, importa `database/update_watermark_security.sql`.
 Para habilitar Flow en una base existente, importa `database/update_flow_payments.sql`.
+Para administrar Flow desde el panel, importa también `database/update_flow_settings.sql` y abre `/admin/flow`.
 
 ## Configuración de Flow
 
 1. Crea primero una cuenta de prueba en `sandbox.flow.cl` y copia su API Key y Secret Key.
 2. Configura `APP_URL` con la URL pública HTTPS exacta del proyecto. Flow no puede confirmar pagos contra `localhost`.
-3. Define estas variables en cPanel o edita `config/config.php` sin publicar las claves en Git:
+3. Ingresa a **Panel → Pasarela Flow**, selecciona Sandbox o Producción e introduce la API Key y Secret Key.
 
 ```text
-FLOW_ENV=sandbox
-FLOW_API_KEY=tu_api_key
-FLOW_SECRET_KEY=tu_secret_key
 APP_URL=https://tudominio.cl
+APP_KEY=una_clave_privada_larga_y_aleatoria
 ```
 
-Para producción cambia `FLOW_ENV=production` y utiliza las credenciales productivas. PHP debe tener cURL habilitado. Las URLs de confirmación y retorno se generan automáticamente desde `APP_URL`.
+El ambiente se cambia desde el panel. La Secret Key queda cifrada y no vuelve a mostrarse. `APP_KEY` protege ese cifrado; si no se define, el sistema deriva una clave desde la conexión de base de datos. PHP debe tener cURL y OpenSSL habilitados. Las URLs de confirmación y retorno se generan automáticamente desde `APP_URL`.
 
 ## Seguridad de archivos
 
