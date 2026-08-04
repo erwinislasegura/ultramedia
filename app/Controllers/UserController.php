@@ -1,0 +1,9 @@
+<?php
+namespace App\Controllers;
+use App\Models\User;
+final class UserController{
+ public function index():void{$users=User::all();$roles=User::roles();$permissions=['dashboard.view'=>'Ver dashboard','photos.manage'=>'Gestionar fotografías','orders.manage'=>'Gestionar ventas','users.manage'=>'Gestionar usuarios','roles.manage'=>'Gestionar roles'];admin_view('admin/users',['users'=>$users,'roles'=>$roles,'permissions'=>$permissions,'pageTitle'=>'Usuarios y roles','adminSection'=>'users']);}
+ public function save():never{verify_csrf();$name=trim($_POST['name']??'');$email=filter_var($_POST['email']??'',FILTER_VALIDATE_EMAIL);$role=(int)($_POST['role_id']??0);$id=(int)($_POST['id']??0);if(!$name||!$email||!$role||(!$id&&strlen($_POST['password']??'')<8)){$_SESSION['error']='Completa los datos. La contraseña nueva debe tener al menos 8 caracteres.';redirect('/admin/usuarios');}try{User::save(['id'=>$id,'name'=>$name,'email'=>$email,'role_id'=>$role,'status'=>in_array($_POST['status']??'',['active','inactive'],true)?$_POST['status']:'active','password'=>$_POST['password']??'']);$_SESSION['success']='Usuario guardado correctamente.';}catch(\Throwable $e){$_SESSION['error']='No se pudo guardar. Revisa que el correo no esté repetido.';}redirect('/admin/usuarios');}
+ public function delete():never{verify_csrf();$id=(int)($_POST['id']??0);if($id>1)try{User::delete($id);$_SESSION['success']='Usuario eliminado.';}catch(\Throwable $e){$_SESSION['error']='No fue posible eliminar este usuario.';}redirect('/admin/usuarios');}
+ public function saveRole():never{verify_csrf();$name=trim($_POST['name']??'');if(!$name){$_SESSION['error']='Escribe el nombre del rol.';redirect('/admin/usuarios');}try{User::saveRole(['id'=>(int)($_POST['id']??0),'name'=>$name,'permissions'=>$_POST['permissions']??[]]);$_SESSION['success']='Rol guardado correctamente.';}catch(\Throwable $e){$_SESSION['error']='No se pudo guardar el rol.';}redirect('/admin/usuarios');}
+}
