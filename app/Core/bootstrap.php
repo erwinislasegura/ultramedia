@@ -3,7 +3,7 @@ declare(strict_types=1);
 define('ROOT',dirname(__DIR__,2));
 spl_autoload_register(function(string $class):void{$prefix='App\\';if(!str_starts_with($class,$prefix))return;$file=ROOT.'/app/'.str_replace('\\','/',substr($class,strlen($prefix))).'.php';if(is_file($file))require $file;});
 function config(?string $key=null):mixed{static $c;$c??=require ROOT.'/config/config.php';return $key?($c[$key]??null):$c;}
-function view(string $name,array $data=[]):void{extract($data);$view=ROOT.'/app/Views/'.$name.'.php';require ROOT.'/app/Views/layouts/main.php';}
+function view(string $name,array $data=[]):void{extract($data);$view=ROOT.'/app/Views/'.$name.'.php';require ROOT.'/app/Views/layouts/store.php';}
 function admin_view(string $name,array $data=[]):void{extract($data);$view=ROOT.'/app/Views/'.$name.'.php';require ROOT.'/app/Views/layouts/admin.php';}
 function url(string $path=''):string{
  if(preg_match('~^https?://~',$path))return $path;
