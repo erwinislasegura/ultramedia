@@ -9,7 +9,7 @@ foreach([
  ['GET','/','StoreController@index'],['GET','/foto','StoreController@photo'],['GET','/preguntas-frecuentes','StoreController@faq'],
  ['GET','/carrito','CartController@index'],['POST','/carrito/agregar','CartController@add'],['POST','/carrito/eliminar','CartController@remove'],
  ['GET','/checkout','CheckoutController@index'],['POST','/checkout','CheckoutController@process'],['GET','/gracias','CheckoutController@thanks'],
- ['GET','/descarga','DownloadController@file'],['GET','/admin','AdminController@dashboard'],['GET','/admin/fotos','AdminController@photos'],
+ ['GET','/descarga','DownloadController@file'],['GET','/vista-previa','PreviewController@file'],['GET','/admin','AdminController@dashboard'],['GET','/admin/fotos','AdminController@photos'],
  ['POST','/admin/fotos','AdminController@upload'],['POST','/admin/fotos/descarga','AdminController@toggleDownload'],
  ['GET','/admin/fotos/editar','AdminController@editPhoto'],['POST','/admin/fotos/editar','AdminController@updatePhoto'],
  ['POST','/admin/fotos/estado','AdminController@togglePhotoStatus'],['POST','/admin/fotos/eliminar','AdminController@deletePhoto'],
