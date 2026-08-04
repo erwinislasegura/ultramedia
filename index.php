@@ -6,7 +6,7 @@ use App\Core\Router;
 $router=new Router();
 foreach([
  ['GET','/admin/login','AuthController@login'],['POST','/admin/login','AuthController@authenticate'],['POST','/admin/logout','AuthController@logout'],
- ['GET','/','StoreController@index'],['GET','/foto','StoreController@photo'],
+ ['GET','/','StoreController@index'],['GET','/foto','StoreController@photo'],['GET','/preguntas-frecuentes','StoreController@faq'],
  ['GET','/carrito','CartController@index'],['POST','/carrito/agregar','CartController@add'],['POST','/carrito/eliminar','CartController@remove'],
  ['GET','/checkout','CheckoutController@index'],['POST','/checkout','CheckoutController@process'],['GET','/gracias','CheckoutController@thanks'],
  ['GET','/descarga','DownloadController@file'],['GET','/admin','AdminController@dashboard'],['GET','/admin/fotos','AdminController@photos'],
