@@ -17,3 +17,5 @@ function redirect(string $path):never{header('Location: '.url($path));exit;}
 function money(int $n):string{return '$'.number_format($n,0,',','.');}
 function csrf():string{$_SESSION['csrf']??=bin2hex(random_bytes(24));return $_SESSION['csrf'];}
 function verify_csrf():void{if(!hash_equals($_SESSION['csrf']??'',$_POST['_token']??'')){http_response_code(419);exit('Sesión expirada');}}
+function admin_user():?array{return $_SESSION['admin_user']??null;}
+function require_admin():void{if(!admin_user())redirect('/admin/login');}
