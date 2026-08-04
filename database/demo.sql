@@ -1,3 +1,8 @@
+INSERT INTO roles(name,slug,permissions,is_system) VALUES
+('Administrador','administrador',JSON_ARRAY('dashboard.view','photos.manage','orders.manage','users.manage','roles.manage'),1),
+('Editor fotográfico','editor-fotografico',JSON_ARRAY('dashboard.view','photos.manage'),1),
+('Ventas','ventas',JSON_ARRAY('dashboard.view','orders.manage'),1);
+INSERT INTO users(role_id,name,email,password_hash,status) SELECT id,'Administrador Ultra','admin@ultramedia.cl','$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2uheWG/igi.','active' FROM roles WHERE slug='administrador';
 INSERT INTO events(name,slug,sport,event_date,location) VALUES
 ('Trail Volcán Antuco','trail-volcan-antuco','Running','2026-08-02','Antuco'),
 ('Liga Urbana','liga-urbana','Fútbol','2026-07-26','Concepción'),
@@ -20,4 +25,3 @@ INSERT INTO orders(customer_name,customer_email,total,status,download_token,paid
 ('Matías Rojas','matias@example.com',4990,'paid','demo00000000000000000000000000000000000000000002',DATE_SUB(NOW(),INTERVAL 3 DAY)),
 ('Valentina Díaz','vale@example.com',14970,'paid','demo00000000000000000000000000000000000000000003',NOW());
 INSERT INTO order_items(order_id,photo_id,unit_price) VALUES(1,1,4990),(1,2,4990),(2,3,4990),(3,4,4990),(3,5,4990),(3,6,4990);
-
