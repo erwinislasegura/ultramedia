@@ -11,6 +11,16 @@ Tienda de fotografía deportiva en PHP 8.1+, MySQL y MVC, lista para cPanel.
 5. Usa PHP 8.1 o superior y habilita PDO MySQL, GD, fileinfo y mod_rewrite.
 6. Da permiso de escritura a `storage/originals` y `storage/previews`.
 
+### Permisos en XAMPP para macOS
+
+```bash
+cd /Applications/XAMPP/xamppfiles/htdocs/ultramedia
+sudo chown -R daemon:daemon storage
+sudo chmod -R 775 storage
+```
+
+Después reinicia Apache desde XAMPP. El usuario del servidor debe poder escribir en `storage/originals` y `storage/previews`.
+
 ## Rutas
 
 - `/`: tienda con búsqueda y cuadrícula 4 × 3
