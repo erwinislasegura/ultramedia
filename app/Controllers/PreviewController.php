@@ -1,0 +1,5 @@
+<?php
+namespace App\Controllers;
+use App\Core\Database;
+final class PreviewController{public function file():never{$s=Database::db()->prepare('SELECT preview_path,status FROM photos WHERE id=?');$s->execute([(int)($_GET['id']??0)]);$photo=$s->fetch();if(!$photo||($photo['status']!=='active'&&!admin_user())){http_response_code(404);exit('Vista previa no disponible');}$path=$photo['preview_path'];if(preg_match('~^https?://~',$path)){header('Location: '.$path);exit;}$file=ROOT.'/'.ltrim($path,'/');$root=realpath(ROOT.'/storage/previews');$real=realpath($file);if(!$root||!$real||!str_starts_with($real,$root.DIRECTORY_SEPARATOR)||!is_file($real)){http_response_code(404);exit('Vista previa no disponible');}header('Content-Type: '.(mime_content_type($real)?:'image/jpeg'));header('Content-Length: '.filesize($real));header('Content-Disposition: inline; filename="vista-previa.jpg"');header('Cache-Control: private, max-age=3600');header('X-Content-Type-Options: nosniff');header("Content-Security-Policy: default-src 'none'; img-src 'self'");readfile($real);exit;}}
+
