@@ -16,6 +16,6 @@ foreach([
  ['GET','/admin/usuarios','UserController@index'],['POST','/admin/usuarios/guardar','UserController@save'],
  ['POST','/admin/usuarios/eliminar','UserController@delete'],['POST','/admin/roles/guardar','UserController@saveRole'],
  ['GET','/admin/pedidos','OrderController@index'],['POST','/admin/pedidos/estado','OrderController@status'],
- ['GET','/admin/cta','CtaController@index'],['POST','/admin/cta','CtaController@save']
+ ['GET','/admin/cta','CtaController@index'],['POST','/admin/cta','CtaController@save'],['GET','/admin/flow','FlowSettingsController@index'],['POST','/admin/flow','FlowSettingsController@save']
 ] as [$m,$p,$a]) $m==='GET'?$router->get($p,$a):$router->post($p,$a);
 $router->dispatch($_SERVER['REQUEST_METHOD'],parse_url($_SERVER['REQUEST_URI'],PHP_URL_PATH));
