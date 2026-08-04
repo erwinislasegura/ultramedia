@@ -21,7 +21,7 @@ Tienda de fotografía deportiva en PHP 8.1+, MySQL y MVC, lista para cPanel.
 - `/admin/usuarios`: gestión de usuarios, estados, roles y permisos
 
 Si la base ya estaba instalada, importa únicamente `database/update_usuarios_roles.sql`.
-Para habilitar login, pedidos completos y CTA configurable, importa además `database/update_login_pedidos_cta.sql`.
+Para habilitar login, pedidos completos y CTA configurable, importa además `database/update_login_pedidos_cta.sql`. Si el acceso no reconoce la contraseña, importa `database/reset_admin_password.sql`.
 
 ## Seguridad de archivos
 
