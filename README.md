@@ -18,8 +18,10 @@ Tienda de fotografía deportiva en PHP 8.1+, MySQL y MVC, lista para cPanel.
 - `/carrito`, `/checkout`: flujo de compra demo
 - `/admin`: dashboard de ventas y memoria
 - `/admin/fotos`: carga por lotes, marca de agua y control de descargas
+- `/admin/usuarios`: gestión de usuarios, estados, roles y permisos
+
+Si la base ya estaba instalada, importa únicamente `database/update_usuarios_roles.sql`.
 
 ## Seguridad de archivos
 
 Los originales se guardan en `storage/originals`, bloqueado por `.htaccess`. Solo `/descarga` los entrega cuando existe un pedido pagado, el token coincide y la foto tiene la descarga habilitada. Las vistas previas son copias redimensionadas con marca de agua. Para producción agrega autenticación al panel y sustituye el pago demo por Webpay, Mercado Pago o Stripe con webhook verificado.
-
