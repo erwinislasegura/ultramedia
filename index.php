@@ -7,9 +7,10 @@ $router=new Router();
 foreach([
  ['GET','/admin/login','AuthController@login'],['POST','/admin/login','AuthController@authenticate'],['POST','/admin/logout','AuthController@logout'],
  ['GET','/','StoreController@index'],['GET','/foto','StoreController@photo'],['GET','/preguntas-frecuentes','StoreController@faq'],
+ ['GET','/mi-cuenta/login','CustomerController@login'],['POST','/mi-cuenta/login','CustomerController@authenticate'],['POST','/mi-cuenta/salir','CustomerController@logout'],['GET','/mi-cuenta','CustomerController@dashboard'],['GET','/mi-cuenta/pedido','CustomerController@order'],['POST','/mi-cuenta/clave','CustomerController@password'],
  ['GET','/carrito','CartController@index'],['POST','/carrito/agregar','CartController@add'],['POST','/carrito/eliminar','CartController@remove'],
  ['GET','/checkout','CheckoutController@index'],['POST','/checkout','CheckoutController@process'],['POST','/pago/flow/confirmacion','CheckoutController@confirmation'],['POST','/pago/flow/retorno','CheckoutController@paymentReturn'],['GET','/pago/flow/retorno','CheckoutController@paymentReturn'],['GET','/pago/resultado','CheckoutController@result'],['GET','/gracias','CheckoutController@thanks'],
- ['GET','/descarga','DownloadController@file'],['GET','/vista-previa','PreviewController@file'],['GET','/admin','AdminController@dashboard'],['GET','/admin/fotos','AdminController@photos'],
+ ['GET','/descarga','DownloadController@file'],['GET','/descarga-set','DownloadController@set'],['GET','/mi-cuenta/descarga','DownloadController@customerFile'],['GET','/vista-previa','PreviewController@file'],['GET','/admin','AdminController@dashboard'],['GET','/admin/fotos','AdminController@photos'],
  ['POST','/admin/fotos','AdminController@upload'],['POST','/admin/fotos/descarga','AdminController@toggleDownload'],
  ['GET','/admin/fotos/editar','AdminController@editPhoto'],['POST','/admin/fotos/editar','AdminController@updatePhoto'],
  ['POST','/admin/fotos/estado','AdminController@togglePhotoStatus'],['POST','/admin/fotos/eliminar','AdminController@deletePhoto'],
