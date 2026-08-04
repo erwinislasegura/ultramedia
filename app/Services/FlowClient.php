@@ -4,10 +4,10 @@ use RuntimeException;
 final class FlowClient{
  private array $config;
  public function __construct(){
-  $this->config=(array)config('flow');
+  $this->config=(array)config('flow');$saved=PaymentSettings::flow();if($saved){$this->config['api_key']=$saved['api_key'];$this->config['secret_key']=$saved['secret_key'];$this->config['api_url']=$saved['environment']==='production'?'https://www.flow.cl/api':'https://sandbox.flow.cl/api';$this->config['active']=(bool)$saved['active'];}
   if(!$this->configured())throw new RuntimeException('Flow no está configurado. Define FLOW_API_KEY y FLOW_SECRET_KEY.');
  }
- public function configured():bool{return trim((string)($this->config['api_key']??''))!==''&&trim((string)($this->config['secret_key']??''))!=='';}
+ public function configured():bool{return ($this->config['active']??true)&&trim((string)($this->config['api_key']??''))!==''&&trim((string)($this->config['secret_key']??''))!=='';}
  public function createPayment(array $order):array{
   return $this->request('POST','payment/create',[
    'apiKey'=>$this->config['api_key'],'commerceOrder'=>$order['commerce_order'],'subject'=>$order['subject'],
