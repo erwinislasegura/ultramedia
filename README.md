@@ -37,6 +37,7 @@ Para habilitar Flow en una base existente, importa `database/update_flow_payment
 Para administrar Flow desde el panel, importa también `database/update_flow_settings.sql` y abre `/admin/flow`.
 Para administrar el hero principal, importa `database/update_homepage_hero.sql` y abre `/admin/hero`.
 Para habilitar cuentas de clientes y venta de sets completos, importa `database/update_customers_sets.sql`.
+Para habilitar packs personalizados de una cantidad fija de fotografías, importa `database/update_photo_packs.sql`.
 
 ## Configuración de Flow
 
