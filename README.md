@@ -38,6 +38,7 @@ Para administrar Flow desde el panel, importa también `database/update_flow_set
 Para administrar el hero principal, importa `database/update_homepage_hero.sql` y abre `/admin/hero`.
 Para habilitar cuentas de clientes y venta de sets completos, importa `database/update_customers_sets.sql`.
 Para habilitar packs personalizados de una cantidad fija de fotografías, importa `database/update_photo_packs.sql`.
+Para enviar el correo HTML posterior al pago y aplicar una vigencia de 15 días, importa `database/update_order_emails.sql` y configura `MAIL_FROM_EMAIL`, `MAIL_FROM_NAME` y `MAIL_REPLY_TO`.
 
 ## Configuración de Flow
 

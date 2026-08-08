@@ -6,19 +6,19 @@ use ZipArchive;
 
 final class DownloadController
 {
-    public function file():never{$token=(string)($_GET['token']??'');$id=(int)($_GET['id']??0);$s=Database::db()->prepare("SELECT p.original_path,p.download_enabled FROM orders o JOIN order_items i ON i.order_id=o.id JOIN photos p ON p.id=i.photo_id WHERE o.download_token=? AND p.id=? AND i.item_type='photo' AND o.status='paid' AND o.paid_at IS NOT NULL");$s->execute([$token,$id]);$this->sendPhoto($s->fetch(),$id);}
-    public function set():never{$token=(string)($_GET['token']??'');$id=(int)($_GET['id']??0);$s=Database::db()->prepare("SELECT ps.id,ps.name FROM orders o JOIN order_items i ON i.order_id=o.id JOIN photo_sets ps ON ps.id=i.set_id WHERE o.download_token=? AND ps.id=? AND i.item_type='set' AND o.status='paid' AND o.paid_at IS NOT NULL");$s->execute([$token,$id]);$set=$s->fetch();if(!$set)$this->denied();$photos=$this->setPhotos($id);$this->sendZip($photos,$set['name']);}
+    public function file():never{$token=(string)($_GET['token']??'');$id=(int)($_GET['id']??0);$s=Database::db()->prepare("SELECT p.original_path,p.download_enabled FROM orders o JOIN order_items i ON i.order_id=o.id JOIN photos p ON p.id=i.photo_id WHERE o.download_token=? AND p.id=? AND i.item_type='photo' AND o.status='paid' AND o.paid_at IS NOT NULL AND o.download_expires_at IS NOT NULL AND NOW()<=o.download_expires_at");$s->execute([$token,$id]);$this->sendPhoto($s->fetch(),$id);}
+    public function set():never{$token=(string)($_GET['token']??'');$id=(int)($_GET['id']??0);$s=Database::db()->prepare("SELECT ps.id,ps.name FROM orders o JOIN order_items i ON i.order_id=o.id JOIN photo_sets ps ON ps.id=i.set_id WHERE o.download_token=? AND ps.id=? AND i.item_type='set' AND o.status='paid' AND o.paid_at IS NOT NULL AND o.download_expires_at IS NOT NULL AND NOW()<=o.download_expires_at");$s->execute([$token,$id]);$set=$s->fetch();if(!$set)$this->denied();$photos=$this->setPhotos($id);$this->sendZip($photos,$set['name']);}
     public function pack():never
     {
         $token=(string)($_GET['token']??'');$item=(int)($_GET['item']??0);
-        $s=Database::db()->prepare("SELECT i.selected_photo_ids,i.item_title FROM orders o JOIN order_items i ON i.order_id=o.id WHERE o.download_token=? AND i.id=? AND i.item_type='pack' AND o.status='paid' AND o.paid_at IS NOT NULL");
+        $s=Database::db()->prepare("SELECT i.selected_photo_ids,i.item_title FROM orders o JOIN order_items i ON i.order_id=o.id WHERE o.download_token=? AND i.id=? AND i.item_type='pack' AND o.status='paid' AND o.paid_at IS NOT NULL AND o.download_expires_at IS NOT NULL AND NOW()<=o.download_expires_at");
         $s->execute([$token,$item]);$pack=$s->fetch();if(!$pack)$this->denied();
         $this->sendZip($this->selectedPhotos($pack['selected_photo_ids']),$pack['item_title']?:'pack-ultra');
     }
     public function customerFile():never
     {
         require_customer();$item=(int)($_GET['item']??0);
-        $s=Database::db()->prepare("SELECT i.*,o.status,p.original_path,p.download_enabled,ps.name set_name FROM order_items i JOIN orders o ON o.id=i.order_id LEFT JOIN photos p ON p.id=i.photo_id LEFT JOIN photo_sets ps ON ps.id=i.set_id WHERE i.id=? AND o.customer_id=? AND o.status='paid' AND o.paid_at IS NOT NULL");
+        $s=Database::db()->prepare("SELECT i.*,o.status,p.original_path,p.download_enabled,ps.name set_name FROM order_items i JOIN orders o ON o.id=i.order_id LEFT JOIN photos p ON p.id=i.photo_id LEFT JOIN photo_sets ps ON ps.id=i.set_id WHERE i.id=? AND o.customer_id=? AND o.status='paid' AND o.paid_at IS NOT NULL AND o.download_expires_at IS NOT NULL AND NOW()<=o.download_expires_at");
         $s->execute([$item,customer_user()['id']]);$i=$s->fetch();if(!$i)$this->denied();
         if($i['item_type']==='set')$this->sendZip($this->setPhotos((int)$i['set_id']),$i['set_name']);
         if($i['item_type']==='pack')$this->sendZip($this->selectedPhotos($i['selected_photo_ids']),$i['item_title']?:'pack-ultra');
