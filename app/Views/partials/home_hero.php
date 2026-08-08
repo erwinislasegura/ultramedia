@@ -11,8 +11,6 @@ $gradient="linear-gradient(90deg,rgba(8,10,11,".min(.98,$opacity+.18)."),rgba(8,
   <span class="eyebrow"><?=htmlspecialchars($hero['eyebrow'])?></span>
   <h1><?=nl2br(htmlspecialchars($hero['title']))?><br><em><?=htmlspecialchars($hero['highlight'])?></em></h1>
   <p><?=htmlspecialchars($hero['description'])?></p>
-  <form class="search" action="<?=url()?>"><input type="hidden" name="anchor" value="fotos"><input name="q" value="<?=htmlspecialchars($_GET['q']??'')?>" placeholder="<?=htmlspecialchars($hero['search_placeholder'])?>"><button><?=htmlspecialchars($hero['button_text'])?> →</button></form>
   <div class="trust"><?php foreach(['trust_one','trust_two','trust_three'] as $item):?><?php if($hero[$item]!==''):?><span><?=htmlspecialchars($hero[$item])?></span><?php endif;?><?php endforeach;?></div>
  </div>
 </section>
-<?php if(($_GET['anchor']??'')==='fotos'):?><script>addEventListener('DOMContentLoaded',()=>document.getElementById('fotos')?.scrollIntoView())</script><?php endif;?>

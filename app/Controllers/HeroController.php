@@ -18,6 +18,7 @@ final class HeroController
     public function save(): never
     {
         verify_csrf();
+        $current = Database::db()->query('SELECT search_placeholder,button_text FROM homepage_hero WHERE id=1')->fetch() ?: [];
         $title = trim($_POST['title'] ?? '');
         $highlight = trim($_POST['highlight'] ?? '');
         $background = trim($_POST['background_url'] ?? '');
@@ -57,8 +58,8 @@ final class HeroController
         $sql = "INSERT INTO homepage_hero(id,eyebrow,title,highlight,description,search_placeholder,button_text,background_url,background_position,overlay_opacity,trust_one,trust_two,trust_three) VALUES(1,?,?,?,?,?,?,?,?,?,?,?,?) ON DUPLICATE KEY UPDATE eyebrow=VALUES(eyebrow),title=VALUES(title),highlight=VALUES(highlight),description=VALUES(description),search_placeholder=VALUES(search_placeholder),button_text=VALUES(button_text),background_url=VALUES(background_url),background_position=VALUES(background_position),overlay_opacity=VALUES(overlay_opacity),trust_one=VALUES(trust_one),trust_two=VALUES(trust_two),trust_three=VALUES(trust_three)";
         Database::db()->prepare($sql)->execute([
             trim($_POST['eyebrow'] ?? ''), $title, $highlight,
-            trim($_POST['description'] ?? ''), trim($_POST['search_placeholder'] ?? ''),
-            trim($_POST['button_text'] ?? ''), $background, $position, $opacity,
+            trim($_POST['description'] ?? ''), (string)($current['search_placeholder'] ?? ''),
+            (string)($current['button_text'] ?? ''), $background, $position, $opacity,
             trim($_POST['trust_one'] ?? ''), trim($_POST['trust_two'] ?? ''), trim($_POST['trust_three'] ?? ''),
         ]);
         $_SESSION['success'] = 'Hero actualizado correctamente.';
