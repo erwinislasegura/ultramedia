@@ -18,6 +18,6 @@ foreach([
  ['POST','/admin/usuarios/eliminar','UserController@delete'],['POST','/admin/roles/guardar','UserController@saveRole'],
  ['GET','/admin/pedidos','OrderController@index'],['POST','/admin/pedidos/estado','OrderController@status'],
  ['GET','/admin/eventos','EventController@index'],['POST','/admin/eventos/guardar','EventController@save'],['POST','/admin/eventos/estado','EventController@status'],['POST','/admin/eventos/eliminar','EventController@delete'],
- ['GET','/admin/cta','CtaController@index'],['POST','/admin/cta','CtaController@save'],['GET','/admin/flow','FlowSettingsController@index'],['POST','/admin/flow','FlowSettingsController@save']
+ ['GET','/admin/cta','CtaController@index'],['POST','/admin/cta','CtaController@save'],['GET','/admin/hero','HeroController@index'],['POST','/admin/hero','HeroController@save'],['GET','/admin/flow','FlowSettingsController@index'],['POST','/admin/flow','FlowSettingsController@save']
 ] as [$m,$p,$a]) $m==='GET'?$router->get($p,$a):$router->post($p,$a);
 $router->dispatch($_SERVER['REQUEST_METHOD'],parse_url($_SERVER['REQUEST_URI'],PHP_URL_PATH));

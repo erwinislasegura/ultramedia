@@ -35,6 +35,7 @@ Para habilitar login, pedidos completos y CTA configurable, importa además `dat
 Para habilitar marca de agua por texto o imagen, importa `database/update_watermark_security.sql`.
 Para habilitar Flow en una base existente, importa `database/update_flow_payments.sql`.
 Para administrar Flow desde el panel, importa también `database/update_flow_settings.sql` y abre `/admin/flow`.
+Para administrar el hero principal, importa `database/update_homepage_hero.sql` y abre `/admin/hero`.
 Para habilitar cuentas de clientes y venta de sets completos, importa `database/update_customers_sets.sql`.
 
 ## Configuración de Flow
