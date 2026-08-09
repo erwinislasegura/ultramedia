@@ -9,7 +9,7 @@ Tienda de fotografía deportiva en PHP 8.1+, MySQL y MVC, lista para cPanel.
 3. Para una instalación nueva, importa únicamente `database/ultramedia_complete.sql` desde phpMyAdmin. Este archivo incluye la estructura completa y los datos de demostración. También puedes importar por separado `database/schema.sql` y luego `database/demo.sql`.
 4. Edita `config/config.php` con las credenciales o define `DB_HOST`, `DB_NAME`, `DB_USER`, `DB_PASS` y `APP_URL`.
 5. Usa PHP 8.1 o superior y habilita PDO MySQL, GD, fileinfo y mod_rewrite.
-6. Da permiso de escritura a `storage/originals` y `storage/previews`.
+6. Da permiso de escritura a `storage/originals`, `storage/previews` y `uploads/events`.
 
 ### Permisos en XAMPP para macOS
 
@@ -24,6 +24,8 @@ Después reinicia Apache desde XAMPP. El usuario del servidor debe poder escribi
 ## Rutas
 
 - `/`: tienda con búsqueda y cuadrícula 4 × 3
+- `/eventos`: eventos publicados
+- `/evento?slug=nombre-del-evento`: sets que componen un evento
 - `/foto?id=1`: detalle
 - `/carrito`, `/checkout`: flujo de compra conectado a Flow
 - `/admin`: dashboard de ventas y memoria
@@ -40,6 +42,7 @@ Para habilitar cuentas de clientes y venta de sets completos, importa `database/
 Para habilitar packs personalizados de una cantidad fija de fotografías, importa `database/update_photo_packs.sql`.
 Para ampliar la modalidad a tres packs por set, importa después `database/update_three_photo_packs.sql`.
 Para elegir la fotografía de portada de cada set, importa `database/update_set_cover.sql`.
+Para administrar portadas de eventos y seleccionar los sets que los componen, importa `database/update_events_module.sql` y abre `/admin/eventos`.
 Si llegaste a ejecutar la conversión incorrecta que separaba las fotografías demo, importa una vez `database/update_restore_grouped_sets.sql` para reunirlas nuevamente en sus sets originales.
 Para enviar el correo HTML posterior al pago y aplicar una vigencia de 15 días, importa `database/update_order_emails.sql` y configura `MAIL_FROM_EMAIL`, `MAIL_FROM_NAME` y `MAIL_REPLY_TO`.
 Para administrar los envíos mediante SMTP desde el panel, importa `database/update_email_settings.sql` y abre `/admin/correo`. La configuración activa reemplaza el envío nativo de PHP.
