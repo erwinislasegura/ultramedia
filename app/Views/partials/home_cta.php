@@ -1,5 +1,6 @@
 <?php if(!empty($cta)):
 $ctaImage=trim((string)($cta['image_url']??''));
+if($ctaImage!=='')$ctaImage=media($ctaImage);
 if($ctaImage==='')$ctaImage='https://images.unsplash.com/photo-1552674605-db6ffd4facb5?auto=format&fit=crop&w=1800&q=88';
 ?>
 <section class="event-cta-wrap" aria-label="<?=htmlspecialchars($cta['title'])?>">

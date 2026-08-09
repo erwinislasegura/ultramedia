@@ -1,0 +1,80 @@
+.sidebar-close,.admin-nav-overlay{display:none}
+
+@media(max-width:900px){
+    body{overflow-x:hidden}
+    body.admin-menu-open{overflow:hidden}
+    main{width:100%;margin-left:0}
+
+    .sidebar{z-index:1200;width:min(300px,88vw);transform:translateX(-102%);transition:transform .25s ease,box-shadow .25s ease;box-shadow:none;padding-bottom:14px;overflow:hidden}
+    .sidebar.open{transform:translateX(0);box-shadow:18px 0 55px #0007}
+    .sidebar .logo{padding-right:45px;flex:0 0 82px}
+    .sidebar nav{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;padding-bottom:18px}
+    .sidebar .user{flex:0 0 auto;background:#0b0d0e;padding-bottom:3px}
+    .sidebar-close{display:grid;place-items:center;position:absolute;z-index:2;right:11px;top:20px;width:39px;height:39px;border:1px solid #ffffff24;background:#171b1c;color:#fff;font:300 27px/1 Inter,sans-serif}
+
+    .admin-nav-overlay{display:block;position:fixed;z-index:1100;inset:0;width:100%;height:100%;border:0;background:#020404a8;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .22s ease,visibility .22s ease}
+    body.admin-menu-open .admin-nav-overlay{opacity:1;visibility:visible;pointer-events:auto}
+
+    .topbar{position:sticky;z-index:1000;top:0;height:62px;padding:0 15px;gap:10px}
+    .topbar-path{min-width:0;gap:9px!important}
+    .topbar-path>span,.topbar-path>b{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .topbar-path>span{display:none}
+    .topbar-path>i{display:none}
+    .topbar-path>b{display:block;max-width:44vw}
+    #menuBtn{display:grid!important;place-items:center;flex:0 0 42px;width:42px;height:42px;border:1px solid #dce1e0!important;background:#f7f9f8!important;color:#15191a;font-size:20px}
+    .top-actions a{padding:10px;font-size:8px;white-space:nowrap}
+
+    .content{width:100%;max-width:none;padding:22px 16px 45px;overflow:hidden}
+    .title{align-items:flex-start;gap:14px;flex-direction:column;margin-bottom:20px}
+    .title h1{font-size:38px;overflow-wrap:anywhere}
+    .title p{line-height:1.55}
+    .date-filter{display:none}
+    .panel{padding:17px}
+    .panel-head{gap:12px;flex-wrap:wrap}
+    .panel-head>*{min-width:0}
+
+    .kpis,.main-grid,.lower-grid,.quick,.upload-grid,.events-admin-grid,.flow-admin-grid,.hero-admin-grid,.cta-admin-grid{grid-template-columns:minmax(0,1fr)!important}
+    .main-grid,.lower-grid{display:grid!important}
+    .quick>div{grid-column:auto!important}
+    .user-kpis{grid-template-columns:1fr!important}
+    .roles-list{grid-template-columns:1fr!important}
+    .two,.two-fields,.event-fields,.trust-fields,.smtp-test,.flow-settings-form .two-fields{grid-template-columns:minmax(0,1fr)!important}
+    .hero-admin-preview,.cta-preview{width:100%}
+
+    .admin-table-wrap,.table-wrap,.users-table{display:block;width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;overscroll-behavior-inline:contain}
+    .admin-table{min-width:760px}
+    .users-table:after,.admin-table-wrap:after,.table-wrap:after{content:'Desliza para ver más →';display:block;position:sticky;left:0;width:max-content;padding-top:9px;color:#848c8d;font-size:9px;font-weight:700;letter-spacing:.04em}
+    .table-actions,.event-actions,.event-form-actions,.user-actions{flex-wrap:wrap}
+
+    .chart-wrap{padding-left:28px;overflow:hidden}
+    .chart-wrap svg{height:195px}
+    .chart-labels{gap:16px;overflow:hidden}
+    .chart-labels span:nth-child(even){display:none}
+    .set-photo-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+    .event-set-picker{max-height:none}
+    .event-editor-head{align-items:flex-start;gap:12px;flex-direction:column}
+    .admin-modal{padding:10px}
+    .admin-modal>div{padding:24px 17px}
+    .admin-modal form>section{grid-template-columns:1fr}
+}
+
+@media(max-width:560px){
+    .content{padding:18px 12px 38px}
+    .topbar{padding:0 10px}
+    .topbar-path>b{max-width:38vw;font-size:10px}
+    .top-actions a{font-size:0;padding:10px 11px}
+    .top-actions a:before{content:'TIENDA ↗';font-size:8px}
+    .title h1{font-size:34px}
+    .panel{padding:14px}
+    .kpis{gap:10px}
+    .kpis article{min-height:140px}
+    .tabs{width:100%}
+    .tabs button{flex:1;min-height:36px}
+    .chart-summary{flex-wrap:wrap}
+    .chart-summary>div{width:100%}
+    .quick{padding:15px}
+    .set-photo-grid{grid-template-columns:1fr!important}
+    .event-cover-preview{min-height:210px}
+    .event-form-actions button,.cta-form>button,.hero-form>button,.flow-settings-form>button{width:100%}
+    .flash{padding:12px 13px;line-height:1.45}
+}
