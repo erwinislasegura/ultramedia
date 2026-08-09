@@ -137,6 +137,12 @@
 
 /* Selector táctil: solo se activa en celulares y no modifica la vista de escritorio. */
 @media(max-width:620px){
+ .product-detail{display:flex;flex-direction:column;gap:12px}
+ .product-overview,.product-purchase{display:contents}
+ .product-detail .detail-media{display:none}
+ .product-detail .smart-photo-selection{order:1}
+ .product-detail .product-summary{order:2}
+ .product-detail .detail-set-box{order:3}
  .product-detail .detail-img{aspect-ratio:3/2}
  .product-detail .detail-stage-help{display:none}
  .product-detail .product-benefits{grid-template-columns:repeat(3,minmax(0,1fr));margin-bottom:0}
