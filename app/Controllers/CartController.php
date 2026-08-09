@@ -2,6 +2,7 @@
 namespace App\Controllers;
 
 use App\Models\Photo;
+use App\Models\PhotoPack;
 use App\Models\PhotoSet;
 use App\Models\ShopCart;
 
@@ -17,11 +18,21 @@ final class CartController
         $ids=array_values(array_unique(array_filter(array_map('intval',(array)($_POST['ids']??[])))));
         $set=PhotoSet::find($setId);
         $photos=Photo::ids($ids);
-        $valid=$set&&!empty($set['pack_enabled'])&&count($ids)===(int)$set['pack_quantity']&&count($photos)===count($ids);
+        $valid=$set&&PhotoPack::matching($setId,count($ids))&&count($photos)===count($ids);
         foreach($photos as $photo)if((int)$photo['set_id']!==$setId)$valid=false;
-        if($valid)ShopCart::addPack($setId,$ids);else $_SESSION['error']='Selecciona exactamente '.(int)($set['pack_quantity']??0).' fotografías válidas para armar el pack.';
+        if($valid)ShopCart::addPack($setId,$ids);else $_SESSION['error']='La cantidad seleccionada no corresponde a un pack activo.';
         if($this->wantsJson())$this->json($valid);
         redirect($valid?'/carrito':'/foto?id='.(int)($_POST['return_photo_id']??0));
+    }
+    public function addSelection():never
+    {
+        verify_csrf();$setId=(int)($_POST['set_id']??0);$ids=array_values(array_unique(array_filter(array_map('intval',(array)($_POST['ids']??[])))));$photos=Photo::ids($ids);$set=PhotoSet::find($setId);$valid=$set&&$ids&&count($photos)===count($ids);foreach($photos as $p)if((int)$p['set_id']!==$setId)$valid=false;
+        if(!$valid){$_SESSION['error']='La selección de fotografías no es válida.';redirect('/foto?id='.(int)($_POST['return_photo_id']??0));}
+        $pack=PhotoPack::matching($setId,count($ids));
+        if($pack)ShopCart::addPack($setId,$ids);
+        elseif(!empty($set['individual_enabled']))foreach($ids as $id)ShopCart::add('photo',$id);
+        else{$_SESSION['error']='Selecciona una cantidad correspondiente a uno de los packs disponibles.';redirect('/foto?id='.(int)($_POST['return_photo_id']??0));}
+        if($this->wantsJson())$this->json();redirect('/carrito');
     }
     public function remove():never{verify_csrf();ShopCart::remove((string)($_POST['key']??'photo:'.(int)($_POST['id']??0)));if($this->wantsJson())$this->json();redirect('/carrito');}
     private function wantsJson():bool{return str_contains($_SERVER['HTTP_ACCEPT']??'','application/json')||($_SERVER['HTTP_X_REQUESTED_WITH']??'')==='XMLHttpRequest';}

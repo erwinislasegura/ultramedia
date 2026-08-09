@@ -50,14 +50,15 @@ final class ShopCart
                 $items[]=['key'=>$key,'type'=>'set','id'=>(int)$set['id'],'photo_id'=>null,'set_id'=>(int)$set['id'],'selected_photo_ids'=>[],'title'=>$set['name'],'event_name'=>$set['event_name'],'price'=>(int)$set['set_price'],'preview_path'=>$set['preview_path'],'cover_id'=>$set['cover_id'],'photos_count'=>$set['photos_count']];
                 continue;
             }
-            if($type==='pack'&&!empty($set['pack_enabled'])){
+            if($type==='pack'){
                 $ids=array_values(array_unique(array_filter(array_map('intval',explode(',',$selection)))));
                 $photos=Photo::ids($ids);
                 $validIds=array_map('intval',array_column(array_filter($photos,fn($p)=>(int)$p['set_id']===(int)$set['id']),'id'));
                 sort($ids,SORT_NUMERIC);sort($validIds,SORT_NUMERIC);
-                if(count($ids)!==(int)$set['pack_quantity']||$ids!==$validIds)continue;
+                $option=PhotoPack::matching((int)$set['id'],count($ids));
+                if(!$option||$ids!==$validIds)continue;
                 $cover=$photos[0]??null;
-                $items[]=['key'=>$key,'type'=>'pack','id'=>(int)$set['id'],'photo_id'=>null,'set_id'=>(int)$set['id'],'selected_photo_ids'=>$ids,'title'=>'Pack de '.count($ids).' fotos · '.$set['name'],'event_name'=>$set['event_name'],'price'=>(int)$set['pack_price'],'preview_path'=>$cover['preview_path']??$set['preview_path'],'cover_id'=>$cover['id']??$set['cover_id'],'photos_count'=>count($ids)];
+                $items[]=['key'=>$key,'type'=>'pack','id'=>(int)$set['id'],'photo_id'=>null,'set_id'=>(int)$set['id'],'selected_photo_ids'=>$ids,'title'=>'Pack de '.count($ids).' fotos · '.$set['name'],'event_name'=>$set['event_name'],'price'=>(int)$option['price'],'preview_path'=>$cover['preview_path']??$set['preview_path'],'cover_id'=>$cover['id']??$set['cover_id'],'photos_count'=>count($ids)];
             }
         }
         return $items;
