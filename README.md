@@ -42,6 +42,7 @@ Para habilitar cuentas de clientes y venta de sets completos, importa `database/
 Para habilitar packs personalizados de una cantidad fija de fotografías, importa `database/update_photo_packs.sql`.
 Para ampliar la modalidad a tres packs por set, importa después `database/update_three_photo_packs.sql`.
 Para elegir la fotografía de portada de cada set, importa `database/update_set_cover.sql`.
+Para seleccionar qué sets completos aparecen en la portada, importa `database/update_featured_sets.sql`. El sistema también intenta crear esta columna automáticamente al abrir el módulo de fotografías.
 Para administrar portadas de eventos y seleccionar los sets que los componen, importa `database/update_events_module.sql` y abre `/admin/eventos`.
 Si llegaste a ejecutar la conversión incorrecta que separaba las fotografías demo, importa una vez `database/update_restore_grouped_sets.sql` para reunirlas nuevamente en sus sets originales.
 Para enviar el correo HTML posterior al pago y aplicar una vigencia de 15 días, importa `database/update_order_emails.sql` y configura `MAIL_FROM_EMAIL`, `MAIL_FROM_NAME` y `MAIL_REPLY_TO`.

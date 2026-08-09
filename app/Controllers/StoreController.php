@@ -21,12 +21,13 @@ final class StoreController
 
         [$coverExpression, $previewOrder] = $this->coverSql($db);
         $events = Event::publishedEvents(6);
+        $featuredFilter = PhotoSet::ensureFeaturedHomeColumn() ? 'ps.featured_home=1' : '0=1';
         $sets = $db->query("SELECT ps.*,e.name event_name,COUNT(p.id) photos_count,$coverExpression cover_id,MIN(p.preview_path) preview_path
             FROM photo_sets ps
             JOIN events e ON e.id=ps.event_id
             JOIN photos p ON p.set_id=ps.id
-            WHERE ps.status='active' AND ps.set_enabled=1 AND e.status='published'
-            GROUP BY ps.id ORDER BY ps.id DESC LIMIT 6")->fetchAll();
+            WHERE ps.status='active' AND ps.set_enabled=1 AND $featuredFilter AND e.status='published'
+            GROUP BY ps.id ORDER BY ps.id DESC")->fetchAll();
 
         $query = trim($_GET['q'] ?? '');
         $catalogSql = "SELECT ps.*,e.name event_name,COUNT(p.id) photos_count,$coverExpression cover_id,MIN(p.preview_path) preview_path,MIN(p.price) individual_price
