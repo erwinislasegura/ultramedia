@@ -36,7 +36,7 @@ if(!empty($photo['set_id'])&&(!empty($photo['individual_enabled'])||$packOptions
          data-photo-index="<?=$n+1?>"
          tabindex="0">
    <input type="checkbox" name="ids[]" value="<?=$r['id']?>" data-price="<?=$r['price']?>" <?=((int)$r['id']===(int)$photo['id'])?'checked':''?>>
-   <span><img src="<?=preview_url($r)?>" alt="<?=htmlspecialchars($r['title'])?>"><i>✓</i><u>VER</u></span>
+   <span><img src="<?=preview_url($r)?>" alt="<?=htmlspecialchars($r['title'])?>"><i>✓</i></span>
    <small><?=htmlspecialchars($r['title'])?></small>
    <b><?=money((int)$r['price'])?></b>
   </label>
