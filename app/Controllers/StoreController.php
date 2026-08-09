@@ -112,7 +112,7 @@ final class StoreController
             'related' => $related,
             'pageTitle' => 'Detalle de fotografía | Ultra',
             'flowPage' => true,
-            'bodyClass' => 'inner',
+            'bodyClass' => 'inner photo-page',
             'toplineRight' => 'SELECCIONA TUS FOTOS',
         ]);
     }

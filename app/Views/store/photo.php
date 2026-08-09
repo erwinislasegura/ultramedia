@@ -6,26 +6,9 @@
  <a href="<?=url()?>">INICIO</a><span>›</span><a href="<?=url('eventos')?>">EVENTOS</a><span>›</span><b><?=htmlspecialchars($photo['set_name']?:$photo['title'])?></b>
 </nav>
 
-<section class="product-detail">
- <div class="product-overview">
-  <div class="detail-media">
-   <div class="detail-stage">
-    <div class="detail-img">
-     <img id="detailMainImage" src="<?=preview_url($photo)?>" alt="<?=htmlspecialchars($photo['title'])?>">
-     <span>ULTRA</span>
-     <b>VISTA PREVIA PROTEGIDA</b>
-     <div class="detail-photo-meta" aria-live="polite">
-      <small id="detailMainPosition">FOTO 1 DE <?=count($related)?></small>
-      <strong id="detailMainTitle"><?=htmlspecialchars($photo['title'])?></strong>
-     </div>
-    </div>
-    <?php if(count($related)>1):?>
-    <p class="detail-stage-help"><i></i><span><b>EXPLORA EL SET</b>Pasa el cursor o toca una miniatura para verla en grande.</span></p>
-    <?php endif;?>
-   </div>
-  </div>
-
-  <div class="detail-copy product-summary">
+<section class="product-detail product-detail--without-cover">
+ <div class="detail-copy product-summary">
+  <div class="product-summary-main">
    <div class="product-heading">
     <span class="eyebrow dark">FOTOGRAFÍA DEPORTIVA OFICIAL</span>
     <h1><?=htmlspecialchars($photo['set_name']?:$photo['title'])?></h1>
@@ -35,7 +18,9 @@
      <span><small>SET</small><b><?=count($related)?> <?=count($related)===1?'FOTO':'FOTOS'?></b></span>
     </div>
    </div>
+  </div>
 
+  <div class="product-summary-side">
    <div class="product-benefits" aria-label="Características de la compra">
     <div><i>01</i><span><b>ALTA RESOLUCIÓN</b><small>Original sin marca de agua</small></span></div>
     <div><i>02</i><span><b>PAGO SEGURO</b><small>Procesado mediante Flow</small></span></div>

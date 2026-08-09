@@ -19,13 +19,15 @@
  const previewChoices=[...document.querySelectorAll('[data-preview-image]')];
 
  function showPreview(choice){
-  if(!main||!choice)return;
+  if(!choice)return;
   previewChoices.forEach(item=>item.classList.toggle('is-viewing',item===choice));
-  main.src=choice.dataset.previewImage;
-  main.alt=choice.dataset.previewTitle||'Vista previa de fotografía';
-  main.classList.remove('preview-swap');
-  void main.offsetWidth;
-  main.classList.add('preview-swap');
+  if(main){
+   main.src=choice.dataset.previewImage;
+   main.alt=choice.dataset.previewTitle||'Vista previa de fotografía';
+   main.classList.remove('preview-swap');
+   void main.offsetWidth;
+   main.classList.add('preview-swap');
+  }
   if(mainTitle)mainTitle.textContent=choice.dataset.previewTitle||'';
   if(mainPosition)mainPosition.textContent=`FOTO ${choice.dataset.photoIndex||1} DE ${previewChoices.length}`;
   if(mobileMain){mobileMain.src=choice.dataset.previewImage;mobileMain.alt=choice.dataset.previewTitle||'Vista previa de fotografía';}

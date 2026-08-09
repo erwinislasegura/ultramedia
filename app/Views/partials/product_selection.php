@@ -41,7 +41,7 @@ if(!empty($photo['set_id'])&&(!empty($photo['individual_enabled'])||$packOptions
   <button class="mobile-picker-submit" type="submit">AGREGAR SELECCIÓN AL CARRITO →</button>
  </div>
 
- <div class="selector-preview-hint"><span>VISTA PREVIA</span>Pasa el cursor o toca una imagen para verla en grande</div>
+ <div class="selector-preview-hint"><span>SELECCIÓN DE FOTOS</span>Marca las imágenes que deseas comprar; el total se actualiza automáticamente.</div>
  <div class="photo-selector smart-selector">
   <?php foreach($related as $n=>$r):?>
   <label class="photo-choice <?=((int)$r['id']===(int)$photo['id'])?'is-viewing':''?>"
