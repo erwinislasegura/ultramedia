@@ -24,6 +24,7 @@ INSERT INTO photos(event_id,title,bib_number,price,original_path,preview_path,fi
 UPDATE photos SET set_id=1 WHERE event_id=1;
 UPDATE photos SET set_id=2 WHERE event_id=2;
 UPDATE photos SET set_id=3 WHERE event_id=3;
+UPDATE photo_sets ps SET cover_photo_id=(SELECT MIN(p.id) FROM photos p WHERE p.set_id=ps.id);
 INSERT INTO orders(customer_name,customer_email,total,status,download_token,paid_at) VALUES
 ('Camila Soto','camila@example.com',9980,'paid','demo00000000000000000000000000000000000000000001',DATE_SUB(NOW(),INTERVAL 6 DAY)),
 ('Matías Rojas','matias@example.com',4990,'paid','demo00000000000000000000000000000000000000000002',DATE_SUB(NOW(),INTERVAL 3 DAY)),
