@@ -7,10 +7,10 @@ if(!empty($photo['set_id'])&&(!empty($photo['individual_enabled'])||$packOptions
  <input type="hidden" name="set_id" value="<?=(int)$photo['set_id']?>">
  <input type="hidden" name="return_photo_id" value="<?=(int)$photo['id']?>">
 
- <header>
+ <div class="selection-header">
   <div><span>ARMA TU COMPRA</span><h2>ELIGE TUS FOTOGRAFÍAS</h2></div>
   <strong class="smart-total"><?=money((int)$photo['price'])?></strong>
- </header>
+ </div>
 
  <?php if($packOptions):?>
  <div class="available-packs">

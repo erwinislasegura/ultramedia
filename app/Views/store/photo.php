@@ -1,8 +1,10 @@
 <?php if(!empty($_SESSION['error'])):?>
-<div class="demo-note"><?=htmlspecialchars($_SESSION['error']);unset($_SESSION['error']);?></div>
+<div class="demo-note product-alert"><?=htmlspecialchars($_SESSION['error']);unset($_SESSION['error']);?></div>
 <?php endif;?>
 
-<div class="crumb">Inicio › Fotografías › <b><?=htmlspecialchars($photo['title'])?></b></div>
+<nav class="crumb product-crumb" aria-label="Navegación">
+ <a href="<?=url()?>">INICIO</a><span>›</span><a href="<?=url('eventos')?>">EVENTOS</a><span>›</span><b><?=htmlspecialchars($photo['set_name']?:$photo['title'])?></b>
+</nav>
 
 <section class="detail product-detail">
  <div class="detail-media">
@@ -17,35 +19,46 @@
     </div>
    </div>
    <?php if(count($related)>1):?>
-   <p class="detail-stage-help"><i></i>Pasa el cursor o toca una fotografía en la selección para verla en grande.</p>
+   <p class="detail-stage-help"><i></i><span><b>EXPLORA EL SET</b>Pasa el cursor o toca una miniatura para verla en grande.</span></p>
    <?php endif;?>
   </div>
  </div>
 
  <div class="detail-copy">
-  <span class="eyebrow dark">ARCHIVO DIGITAL · ALTA RESOLUCIÓN</span>
-  <h1><?=htmlspecialchars($photo['set_name']?:$photo['title'])?></h1>
-  <p><?=htmlspecialchars($photo['event_name'])?> · Competidor #<?=htmlspecialchars($photo['bib_number'])?></p>
-  <ul>
-   <li>✓ Selecciona una o varias fotografías</li>
-   <li>✓ Originales sin marca de agua después del pago</li>
-   <li>✓ También puedes comprar el set completo</li>
-  </ul>
+  <div class="product-heading">
+   <span class="eyebrow dark">FOTOGRAFÍA DEPORTIVA OFICIAL</span>
+   <h1><?=htmlspecialchars($photo['set_name']?:$photo['title'])?></h1>
+   <div class="product-context">
+    <span><small>EVENTO</small><b><?=htmlspecialchars($photo['event_name'])?></b></span>
+    <?php if($photo['bib_number']!==null&&$photo['bib_number']!==''):?><span><small>COMPETIDOR</small><b>#<?=htmlspecialchars($photo['bib_number'])?></b></span><?php endif;?>
+    <span><small>SET</small><b><?=count($related)?> <?=count($related)===1?'FOTO':'FOTOS'?></b></span>
+   </div>
+  </div>
+
+  <div class="product-benefits" aria-label="Características de la compra">
+   <div><i>01</i><span><b>ALTA RESOLUCIÓN</b><small>Archivo original sin marca</small></span></div>
+   <div><i>02</i><span><b>PAGO SEGURO</b><small>Procesado mediante Flow</small></span></div>
+   <div><i>03</i><span><b>DESCARGA DIGITAL</b><small>Acceso después del pago</small></span></div>
+  </div>
 
   <?php require ROOT.'/app/Views/partials/product_selection.php';?>
 
   <?php if($photo['set_id']&&!empty($photo['set_enabled'])):?>
   <div class="set-box detail-set-box">
-   <span>MEJOR VALOR · TODO INCLUIDO</span>
-   <h2>SET COMPLETO</h2>
-   <p><?=count($related)?> fotografías originales en un único archivo ZIP.</p>
-   <strong><?=money((int)$photo['set_price'])?></strong>
-   <form method="post" action="<?=url('carrito/agregar')?>">
-    <input type="hidden" name="_token" value="<?=csrf()?>">
-    <input type="hidden" name="type" value="set">
-    <input type="hidden" name="id" value="<?=$photo['set_id']?>">
-    <button>COMPRAR SET COMPLETO →</button>
-   </form>
+   <div class="detail-set-copy">
+    <span>MEJOR VALOR · TODO INCLUIDO</span>
+    <h2>LLÉVATE EL SET COMPLETO</h2>
+    <p><?=count($related)?> fotografías originales en alta resolución, reunidas en un único archivo ZIP.</p>
+   </div>
+   <div class="detail-set-action">
+    <strong><small>VALOR DEL SET</small><?=money((int)$photo['set_price'])?></strong>
+    <form method="post" action="<?=url('carrito/agregar')?>">
+     <input type="hidden" name="_token" value="<?=csrf()?>">
+     <input type="hidden" name="type" value="set">
+     <input type="hidden" name="id" value="<?=$photo['set_id']?>">
+     <button>COMPRAR SET COMPLETO <span aria-hidden="true">→</span></button>
+    </form>
+   </div>
   </div>
   <?php endif;?>
  </div>

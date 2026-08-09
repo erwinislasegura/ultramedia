@@ -1,0 +1,122 @@
+/* Vista de producto: jerarquía clara, compra guiada y comportamiento estable. */
+.product-alert{width:min(1180px,92%);margin:18px auto 0;border-left:4px solid #baff18;font-size:11px;line-height:1.5}
+.product-crumb{display:flex;align-items:center;gap:9px;margin:0 0 20px;color:#7b8485;font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.product-crumb a{color:#303738;transition:color .2s ease}
+.product-crumb a:hover{color:#6e9200}
+.product-crumb span{color:#b2b8b9}
+.product-crumb b{overflow:hidden;color:#6d7577;font-weight:700;text-overflow:ellipsis;white-space:nowrap}
+
+.product-detail{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(430px,.92fr);gap:24px;align-items:start;background:transparent}
+.product-detail .detail-media{align-self:start;background:transparent}
+.product-detail .detail-stage{position:sticky;top:20px;border:1px solid #202627;background:#090c0d;box-shadow:0 22px 55px rgba(9,14,15,.18)}
+.product-detail .detail-img{aspect-ratio:4/3;background:radial-gradient(circle at 50% 42%,#293133 0,#151a1c 46%,#080b0c 100%)}
+.product-detail .detail-img>img{object-fit:contain}
+.product-detail .detail-img>b{top:16px;left:16px;padding:8px 10px;border-color:rgba(255,255,255,.2);font-size:7px}
+.product-detail .detail-photo-meta{left:22px;right:22px;bottom:20px}
+.product-detail .detail-photo-meta small{font-size:9px}
+.product-detail .detail-photo-meta strong{font-size:clamp(21px,2vw,28px)}
+.product-detail .detail-stage-help{display:flex;align-items:center;gap:12px;padding:14px 17px;background:#0d1112;color:#919a9c;font-size:9px}
+.product-detail .detail-stage-help>i{width:7px;height:7px;flex:0 0 7px}
+.product-detail .detail-stage-help span,.product-detail .detail-stage-help b{display:block}
+.product-detail .detail-stage-help b{margin-bottom:3px;color:#dfe4e4;font-size:8px;letter-spacing:.12em}
+
+.product-detail .detail-copy{padding:clamp(27px,3.1vw,39px);background:#fff;border-top:4px solid #baff18;box-shadow:0 18px 45px rgba(11,17,18,.09)}
+.product-heading>.eyebrow{display:block;color:#727b7c;font-size:8px}
+.product-heading h1,.product-detail .detail-copy h1{max-width:650px;margin:13px 0 20px;font:800 clamp(40px,4.1vw,53px)/.88 "Barlow Condensed";letter-spacing:-.025em;text-transform:uppercase}
+.product-context{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(90px,.7fr) minmax(75px,.65fr);border:1px solid #dfe3e3;background:#f5f7f6}
+.product-context>span{padding:12px 13px;border-right:1px solid #dfe3e3}
+.product-context>span:last-child{border-right:0}
+.product-context small,.product-context b{display:block}
+.product-context small{margin-bottom:5px;color:#858e90;font-size:7px;font-weight:800;letter-spacing:.12em}
+.product-context b{overflow:hidden;color:#202627;font-size:10px;line-height:1.35;text-overflow:ellipsis;white-space:nowrap}
+
+.product-benefits{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin:17px 0 20px;border-block:1px solid #e2e5e5}
+.product-benefits>div{display:flex;align-items:center;gap:9px;padding:14px 10px;border-right:1px solid #e2e5e5}
+.product-benefits>div:first-child{padding-left:0}
+.product-benefits>div:last-child{padding-right:0;border-right:0}
+.product-benefits i{display:grid;place-items:center;width:28px;height:28px;flex:0 0 28px;background:#111617;color:#baff18;font:800 8px Inter;font-style:normal}
+.product-benefits span,.product-benefits b,.product-benefits small{display:block;min-width:0}
+.product-benefits b{color:#252b2c;font-size:8px;line-height:1.25;letter-spacing:.03em}
+.product-benefits small{margin-top:3px;color:#858e8f;font-size:7px;line-height:1.35}
+
+.product-detail .smart-photo-selection{margin:0!important;padding:23px!important;border:1px solid #222a2b!important;border-top:4px solid #baff18!important;background:linear-gradient(145deg,#0b0f10,#111718)!important;color:#fff}
+.product-detail .selection-header{display:flex;align-items:flex-end;justify-content:space-between;gap:18px}
+.product-detail .selection-header>div>span{color:#baff18;font-size:8px;font-weight:800;letter-spacing:.15em}
+.product-detail .selection-header h2{margin:7px 0 0;font:800 29px/.95 "Barlow Condensed";letter-spacing:-.01em}
+.product-detail .smart-total{color:#fff;font:800 30px/1 "Barlow Condensed";white-space:nowrap}
+.product-detail .available-packs{gap:8px;margin:17px 0 15px}
+.product-detail .available-packs>div{min-width:0;padding:11px 10px;border-color:#303839;background:rgba(255,255,255,.025)}
+.product-detail .available-packs>div.active{border-color:#baff18;background:#baff18;box-shadow:0 7px 20px rgba(186,255,24,.12)}
+.product-detail .available-packs small{font-size:7px}
+.product-detail .available-packs b{font-size:18px}
+.product-detail .available-packs strong{font-size:10px}
+.product-detail .smart-status{margin:14px 0 12px;padding:10px 11px;background:#151b1c;border-left:3px solid #323a3b}
+.product-detail .smart-status span{color:#c7cdce;font-size:9px}
+.product-detail .smart-status span b{color:#baff18;font-size:13px}
+.product-detail .smart-status em{padding:6px 8px;font-size:7px;letter-spacing:.08em}
+.product-detail .smart-status em.pack-active{background:#baff18;color:#111}
+.product-detail .selector-preview-hint{margin:12px 0 9px;font-size:8px}
+.product-detail .photo-selector,.product-detail .photo-selector.smart-selector{grid-template-columns:repeat(4,minmax(0,1fr));gap:7px;max-height:330px;padding-right:5px}
+.product-detail .photo-selector label{padding:4px;border-color:#2d3536;background:#111617}
+.product-detail .photo-selector label>span{height:74px}
+.product-detail .photo-selector label>small{margin:5px 2px 0;font-size:7px}
+.product-detail .photo-selector label>b{margin:2px 2px 1px;font-size:13px}
+.product-detail .smart-help{margin:12px 0 0;color:#9aa3a4;font-size:8px}
+.product-detail .smart-photo-selection>button{min-height:45px;margin-top:15px;border:0;background:#baff18;color:#101516;font-size:9px;letter-spacing:.04em;transition:background .2s ease,transform .2s ease}
+.product-detail .smart-photo-selection>button:not(:disabled):hover{background:#c9ff47;transform:translateY(-1px)}
+
+.product-detail .detail-set-box{display:grid;grid-template-columns:minmax(0,1fr) auto!important;gap:22px!important;align-items:center!important;margin-top:15px;padding:23px!important;border:1px solid #202829;border-left:4px solid #baff18;background:#101516;color:#fff}
+.product-detail .detail-set-copy,.product-detail .detail-set-action{min-width:0}
+.product-detail .detail-set-copy>span{display:block;color:#baff18;font-size:7px;font-weight:800;letter-spacing:.13em}
+.product-detail .detail-set-copy h2{margin:7px 0 6px;font:800 27px/.95 "Barlow Condensed"}
+.product-detail .detail-set-copy p{max-width:390px;margin:0;color:#9ea7a8;font-size:9px;line-height:1.55}
+.product-detail .detail-set-action{display:grid;justify-items:end;gap:10px}
+.product-detail .detail-set-action>strong{display:block;color:#fff;font:800 27px/1 "Barlow Condensed";text-align:right}
+.product-detail .detail-set-action>strong small{display:block;margin-bottom:4px;color:#889294;font:700 7px/1 Inter;letter-spacing:.1em}
+.product-detail .detail-set-action form{width:100%;grid-column:auto!important;grid-row:auto!important}
+.product-detail .detail-set-action button{display:flex;align-items:center;justify-content:center;gap:10px;width:100%!important;min-width:195px!important;min-height:42px;margin:0!important;padding:12px 14px!important;background:#baff18!important;color:#101516!important;font-size:8px!important;letter-spacing:.03em}
+.product-detail .detail-set-action button span{font-size:16px}
+
+@media(max-width:1050px){
+ .product-detail{grid-template-columns:1fr;gap:18px}
+ .product-detail .detail-stage{position:static;top:auto}
+ .product-detail .detail-img{aspect-ratio:16/10}
+ .product-detail .detail-copy{padding:34px}
+ .product-detail .photo-selector,.product-detail .photo-selector.smart-selector{grid-template-columns:repeat(5,minmax(0,1fr))}
+ .product-detail .photo-selector label>span{height:95px}
+}
+@media(max-width:700px){
+ .product-crumb{margin-bottom:14px}
+ .product-detail .detail-img{aspect-ratio:4/3}
+ .product-detail .detail-copy{padding:25px}
+ .product-heading h1,.product-detail .detail-copy h1{font-size:39px}
+ .product-context{grid-template-columns:1fr 1fr}
+ .product-context>span:first-child{grid-column:1/-1;border-right:0;border-bottom:1px solid #dfe3e3}
+ .product-benefits{grid-template-columns:1fr}
+ .product-benefits>div,.product-benefits>div:first-child,.product-benefits>div:last-child{padding:11px 0;border-right:0;border-bottom:1px solid #e2e5e5}
+ .product-benefits>div:last-child{border-bottom:0}
+ .product-detail .selection-header{align-items:flex-start;flex-direction:column;gap:8px}
+ .product-detail .available-packs{grid-template-columns:repeat(3,minmax(0,1fr))}
+ .product-detail .available-packs>div{display:block;text-align:left}
+ .product-detail .photo-selector,.product-detail .photo-selector.smart-selector{grid-template-columns:repeat(3,minmax(0,1fr));max-height:360px}
+ .product-detail .photo-selector label>span{height:92px}
+ .product-detail .detail-set-box{grid-template-columns:1fr!important;align-items:start!important}
+ .product-detail .detail-set-action{grid-template-columns:1fr auto;align-items:center;justify-items:start;width:100%}
+ .product-detail .detail-set-action>strong{text-align:left}
+}
+@media(max-width:460px){
+ .product-detail .detail-copy{padding:20px}
+ .product-heading h1,.product-detail .detail-copy h1{font-size:34px}
+ .product-detail .detail-photo-meta{left:14px;right:14px;bottom:13px}
+ .product-detail .detail-stage-help{display:none}
+ .product-detail .smart-photo-selection{padding:18px 14px!important}
+ .product-detail .available-packs{gap:5px}
+ .product-detail .available-packs>div{padding:9px 6px}
+ .product-detail .available-packs b{font-size:16px}
+ .product-detail .available-packs strong{font-size:8px}
+ .product-detail .smart-status{align-items:flex-start;flex-direction:column;gap:7px}
+ .product-detail .photo-selector,.product-detail .photo-selector.smart-selector{grid-template-columns:repeat(2,minmax(0,1fr));max-height:390px}
+ .product-detail .photo-selector label>span{height:106px}
+ .product-detail .detail-set-action{grid-template-columns:1fr}
+ .product-detail .detail-set-action button{min-width:0!important}
+}
