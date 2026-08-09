@@ -1,6 +1,6 @@
 <section class="process-wrap" id="como" aria-labelledby="process-title">
  <div class="process-watermark" aria-hidden="true">ULTRA</div>
- <header class="process-heading">
+ <div class="process-heading">
   <div class="process-title-block">
    <span class="process-kicker">ASÍ FUNCIONA</span>
    <h2 id="process-title">TU MOMENTO,<br><em>LISTO PARA REVIVIR.</em></h2>
@@ -9,7 +9,7 @@
    <p>Encuentra las fotografías oficiales de tu participación, elige cómo comprarlas y recíbelas en alta calidad.</p>
    <a href="<?=url('eventos')?>">EXPLORAR EVENTOS <span aria-hidden="true">↗</span></a>
   </div>
- </header>
+ </div>
 
  <ol class="process-grid">
   <li>
