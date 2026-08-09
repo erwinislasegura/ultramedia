@@ -57,7 +57,8 @@ final class StoreController
             }
         }
 
-        view('store/index', compact('events', 'sets', 'catalogSets', 'setPreviews', 'cta', 'hero'));
+        $bodyClass = 'home-page';
+        view('store/index', compact('events', 'sets', 'catalogSets', 'setPreviews', 'cta', 'hero', 'bodyClass'));
     }
 
     public function events(): void

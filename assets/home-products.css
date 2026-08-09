@@ -1,0 +1,59 @@
+/* Tarjetas de productos de portada: áreas separadas para evitar solapamientos. */
+.home-page .set-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.home-page .featured-set-card{display:grid;grid-template-columns:minmax(210px,44%) minmax(0,1fr);min-height:285px;overflow:hidden;border:1px solid #232a2b;background:#101516}
+.home-page .featured-set-card>.featured-set-media{min-height:285px;padding:0}
+.home-page .featured-set-card>.set-card-copy{display:flex;min-width:0;flex-direction:column;align-items:stretch;padding:27px}
+.home-page .set-card-copy small{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.home-page .set-card-copy h3{display:-webkit-box;overflow:hidden;min-height:48px;margin:9px 0 8px;font-size:27px;line-height:.94;-webkit-box-orient:vertical;-webkit-line-clamp:2}
+.home-page .set-card-copy p{margin:0 0 12px}
+.home-page .set-card-copy strong{margin-top:auto}
+.home-page .set-card-copy form{margin-top:10px!important}
+.home-page .set-card-copy button{min-height:43px;margin:0}
+
+.home-page .product-grid{align-items:stretch}
+.home-page .home-product-card{display:flex;min-width:0;flex-direction:column}
+.home-page .home-product-media{isolation:isolate;flex:0 0 245px}
+.home-page .home-product-media .product-slider{z-index:0}
+.home-page .home-product-media:after{content:'';position:absolute;z-index:1;inset:55% 0 0;background:linear-gradient(transparent,rgba(5,8,9,.72));pointer-events:none}
+.home-page .home-product-media .wm{z-index:2;pointer-events:none}
+.home-page .home-product-media .product-bib,.home-page .home-product-media .set-badge{z-index:3;top:12px;bottom:auto;padding:7px 9px;font:800 8px Inter,sans-serif;letter-spacing:.04em}
+.home-page .home-product-media .product-bib{right:auto;left:12px;background:rgba(8,11,12,.86);color:#fff}
+.home-page .home-product-media .set-badge{right:12px;left:auto;white-space:nowrap}
+.home-page .product-card-info{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:13px;align-items:center;flex:1;min-height:94px;padding:14px!important}
+.home-page .product-card-copy{display:block;min-width:0}
+.home-page .product-card-copy small{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.home-page .product-card-copy strong{display:-webkit-box;overflow:hidden;margin-top:5px;font-size:17px;line-height:1.05;white-space:normal;-webkit-box-orient:vertical;-webkit-line-clamp:2}
+.home-page .product-card-action{display:flex!important;align-items:center;justify-content:center;gap:7px;min-width:94px;min-height:38px;padding:10px!important;white-space:nowrap}
+.home-page .product-card-action span{font-size:14px}
+
+@media(max-width:1050px){
+ .home-page .featured-set-card{grid-template-columns:minmax(170px,40%) minmax(0,1fr)}
+ .home-page .featured-set-card>.set-card-copy{padding:22px}
+ .home-page .product-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+
+@media(max-width:850px){
+ .home-page .set-grid{grid-template-columns:1fr}
+ .home-page .featured-set-card{grid-template-columns:minmax(240px,42%) minmax(0,1fr)}
+ .home-page .product-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .home-page .home-product-media{flex-basis:270px}
+}
+
+@media(max-width:620px){
+ .home-page .featured-sets,.home-page .shop .section{width:min(100% - 28px,560px)}
+ .home-page .featured-set-card{grid-template-columns:1fr}
+ .home-page .featured-set-card>.featured-set-media{min-height:0;aspect-ratio:16/10}
+ .home-page .featured-set-card>.set-card-copy{padding:20px}
+ .home-page .set-card-copy h3{min-height:0;font-size:25px;-webkit-line-clamp:3}
+ .home-page .product-grid{grid-template-columns:1fr;gap:15px}
+ .home-page .home-product-media{flex-basis:auto;height:auto;aspect-ratio:4/3}
+ .home-page .product-card-info{grid-template-columns:minmax(0,1fr) auto;min-height:88px;padding:13px!important}
+ .home-page .product-card-copy strong{font-size:19px}
+ .home-page .product-card-action{min-width:105px}
+}
+
+@media(max-width:390px){
+ .home-page .featured-sets,.home-page .shop .section{width:calc(100% - 20px)}
+ .home-page .product-card-info{grid-template-columns:1fr}
+ .home-page .product-card-action{width:100%}
+}
