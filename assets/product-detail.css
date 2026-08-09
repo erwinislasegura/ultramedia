@@ -71,6 +71,7 @@
 .product-detail .smart-help{margin:12px 0 0;color:#9aa3a4;font-size:8px}
 .product-detail .smart-photo-selection>button{min-height:45px;margin-top:15px;border:0;background:#baff18;color:#101516;font-size:9px;letter-spacing:.04em;transition:background .2s ease,transform .2s ease}
 .product-detail .smart-photo-selection>button:not(:disabled):hover{background:#c9ff47;transform:translateY(-1px)}
+.mobile-photo-picker{display:none}
 
 .product-detail .detail-set-box{display:flex!important;flex-direction:column;gap:0!important;height:100%;margin:0;padding:27px!important;border:1px solid #202829;border-top:4px solid #baff18;background:#101516;color:#fff}
 .product-detail .detail-set-copy>span{display:block;color:#baff18;font-size:7px;font-weight:800;letter-spacing:.13em}
@@ -132,4 +133,60 @@
  .product-detail .smart-photo-selection{padding:18px 14px!important}
  .product-detail .photo-selector,.product-detail .photo-selector.smart-selector{grid-template-columns:repeat(2,minmax(0,1fr))}
  .product-detail .photo-selector label>span{height:104px}
+}
+
+/* Selector táctil: solo se activa en celulares y no modifica la vista de escritorio. */
+@media(max-width:620px){
+ .product-detail .detail-img{aspect-ratio:3/2}
+ .product-detail .detail-stage-help{display:none}
+ .product-detail .product-benefits{grid-template-columns:repeat(3,minmax(0,1fr));margin-bottom:0}
+ .product-detail .product-benefits>div,.product-detail .product-benefits>div:first-child,.product-detail .product-benefits>div:last-child{align-items:center;flex-direction:column;gap:6px;padding:10px 4px;border-right:1px solid #e2e5e5;border-bottom:0;text-align:center}
+ .product-detail .product-benefits>div:last-child{border-right:0}
+ .product-detail .product-benefits small{display:none}
+ .product-detail .purchase-guide{display:none}
+ .product-purchase{margin-top:12px}
+ .product-detail .smart-photo-selection{padding:18px 14px 16px!important}
+ .product-detail .selection-header{gap:5px;margin-bottom:12px}
+ .product-detail .selection-header h2{font-size:28px}
+ .product-detail .selection-header>.smart-total{display:none}
+ .product-detail .available-packs{display:flex;grid-template-columns:none;gap:7px;margin:10px -2px 13px;padding:2px 2px 7px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:thin}
+ .product-detail .available-packs>div{display:block;flex:0 0 128px;padding:10px!important;text-align:left;scroll-snap-align:start}
+ .product-detail .smart-status{display:none}
+ .mobile-photo-picker{display:block;position:sticky;top:8px;z-index:20;margin:0 -3px 14px;padding:6px;background:#090d0e;border:1px solid #31393a;box-shadow:0 14px 35px rgba(0,0,0,.38)}
+ .mobile-picker-image{position:relative;aspect-ratio:16/10;overflow:hidden;background:radial-gradient(circle,#242b2d,#090c0d 72%)}
+ .mobile-picker-image:after{content:"";position:absolute;inset:45% 0 0;background:linear-gradient(transparent,rgba(0,0,0,.78));pointer-events:none}
+ .mobile-picker-image>img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
+ .mobile-picker-image>span{position:absolute;inset:0;display:grid;place-items:center;color:rgba(255,255,255,.18);font:italic 900 54px "Barlow Condensed";transform:rotate(-16deg);pointer-events:none}
+ .mobile-picker-image>div{position:absolute;z-index:2;left:12px;right:12px;bottom:10px;color:#fff}
+ .mobile-picker-image small,.mobile-picker-image strong{display:block}
+ .mobile-picker-image small{margin-bottom:3px;color:#baff18;font-size:8px;font-weight:800;letter-spacing:.12em}
+ .mobile-picker-image strong{overflow:hidden;font:800 19px/1 "Barlow Condensed";text-overflow:ellipsis;white-space:nowrap}
+ .mobile-picker-summary{display:grid;grid-template-columns:minmax(72px,1fr) auto auto;gap:9px;align-items:center;padding:10px 8px}
+ .mobile-picker-summary>span small,.mobile-picker-summary>span b{display:block}
+ .mobile-picker-summary>span small{margin-bottom:3px;color:#858f90;font-size:6px;font-weight:800;letter-spacing:.1em}
+ .mobile-picker-summary>span b{color:#fff;font-size:9px}
+ .mobile-picker-summary>span b strong{color:#baff18;font-size:14px}
+ .mobile-picker-summary>em{padding:6px 7px;background:#202627;color:#b7bfc0;font-size:6px;font-style:normal;font-weight:800;letter-spacing:.06em;text-align:center}
+ .mobile-picker-summary>em.pack-active{background:#baff18;color:#111}
+ .mobile-picker-summary .mobile-picker-price{text-align:right}
+ .mobile-picker-total{font:800 21px/1 "Barlow Condensed"!important}
+ .mobile-picker-submit{display:block;width:100%;min-height:44px;margin:0!important;border:0;background:#baff18!important;color:#101516!important;font-size:8px!important;font-weight:800!important;letter-spacing:.03em}
+ .mobile-picker-submit:disabled{background:#303738!important;color:#7e8889!important}
+ .product-detail .selector-preview-hint{margin:12px 0 9px}
+ .product-detail .selector-preview-hint span{font-size:8px}
+ .product-detail .photo-selector,.product-detail .photo-selector.smart-selector{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;max-height:none;padding:0;overflow:visible}
+ .product-detail .photo-selector label{padding:5px}
+ .product-detail .photo-selector label>span{height:112px}
+ .product-detail .photo-selector label>span i{right:7px;top:7px;width:26px;height:26px;line-height:26px}
+ .product-detail .photo-selector label>small{display:block;margin-top:6px;font-size:8px}
+ .product-detail .photo-selector label>b{margin-top:3px;font-size:16px}
+ .product-detail .photo-selector label.is-viewing{box-shadow:inset 0 -3px #baff18}
+ .product-detail .smart-help{font-size:8px;line-height:1.55}
+ .desktop-selection-submit{display:none!important}
+}
+@media(max-width:360px){
+ .mobile-picker-image{aspect-ratio:3/2}
+ .mobile-picker-summary{grid-template-columns:1fr auto}
+ .mobile-picker-summary>em{grid-column:1/-1;grid-row:2}
+ .product-detail .photo-selector label>span{height:96px}
 }

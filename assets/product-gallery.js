@@ -13,6 +13,9 @@
  const main=document.getElementById('detailMainImage');
  const mainTitle=document.getElementById('detailMainTitle');
  const mainPosition=document.getElementById('detailMainPosition');
+ const mobileMain=document.getElementById('mobileSelectionImage');
+ const mobileTitle=document.getElementById('mobileSelectionTitle');
+ const mobilePosition=document.getElementById('mobileSelectionPosition');
  const previewChoices=[...document.querySelectorAll('[data-preview-image]')];
 
  function showPreview(choice){
@@ -25,6 +28,9 @@
   main.classList.add('preview-swap');
   if(mainTitle)mainTitle.textContent=choice.dataset.previewTitle||'';
   if(mainPosition)mainPosition.textContent=`FOTO ${choice.dataset.photoIndex||1} DE ${previewChoices.length}`;
+  if(mobileMain){mobileMain.src=choice.dataset.previewImage;mobileMain.alt=choice.dataset.previewTitle||'Vista previa de fotografía';}
+  if(mobileTitle)mobileTitle.textContent=choice.dataset.previewTitle||'';
+  if(mobilePosition)mobilePosition.textContent=`FOTO ${choice.dataset.photoIndex||1} DE ${previewChoices.length}`;
  }
 
  previewChoices.forEach(choice=>{
@@ -52,31 +58,41 @@
   const count=form.querySelector('.smart-count');
   const total=form.querySelector('.smart-total');
   const mode=form.querySelector('.smart-mode');
-  const button=form.querySelector('button[type="submit"]');
+  const mobileCount=form.querySelector('.mobile-picker-count');
+  const mobileTotal=form.querySelector('.mobile-picker-total');
+  const mobileMode=form.querySelector('.mobile-picker-mode');
+  const buttons=[...form.querySelectorAll('button[type="submit"]')];
+
+  function setButtons(disabled,label){buttons.forEach(button=>{button.disabled=disabled;button.textContent=label;});}
 
   function update(){
    const selected=checks.filter(check=>check.checked);
    const pack=packs.find(item=>item.quantity===selected.length);
    count.textContent=selected.length;
+   if(mobileCount)mobileCount.textContent=selected.length;
    packs.forEach(item=>item.node.classList.toggle('active',item===pack));
    if(pack){
     total.textContent=money(pack.price);
+    if(mobileTotal)mobileTotal.textContent=money(pack.price);
     mode.textContent=`PACK DE ${pack.quantity} ACTIVADO`;
     mode.className='smart-mode pack-active';
-    button.disabled=false;
-    button.textContent=`AGREGAR PACK DE ${pack.quantity} FOTOS →`;
+    if(mobileMode){mobileMode.textContent=`PACK DE ${pack.quantity} ACTIVADO`;mobileMode.className='mobile-picker-mode pack-active';}
+    setButtons(false,`AGREGAR PACK DE ${pack.quantity} FOTOS →`);
    }else if(individual&&selected.length){
-    total.textContent=money(selected.reduce((sum,check)=>sum+Number(check.dataset.price||0),0));
+    const individualTotal=money(selected.reduce((sum,check)=>sum+Number(check.dataset.price||0),0));
+    total.textContent=individualTotal;
+    if(mobileTotal)mobileTotal.textContent=individualTotal;
     mode.textContent='VALOR INDIVIDUAL';
     mode.className='smart-mode';
-    button.disabled=false;
-    button.textContent='AGREGAR SELECCIÓN AL CARRITO →';
+    if(mobileMode){mobileMode.textContent='VALOR INDIVIDUAL';mobileMode.className='mobile-picker-mode';}
+    setButtons(false,'AGREGAR SELECCIÓN AL CARRITO →');
    }else{
     total.textContent='$0';
+    if(mobileTotal)mobileTotal.textContent='$0';
     mode.textContent=selected.length?'CANTIDAD SIN PACK':'ELIGE TUS FOTOS';
     mode.className='smart-mode';
-    button.disabled=true;
-    button.textContent='SELECCIONA UNA CANTIDAD DE PACK';
+    if(mobileMode){mobileMode.textContent=selected.length?'CANTIDAD SIN PACK':'ELIGE TUS FOTOS';mobileMode.className='mobile-picker-mode';}
+    setButtons(true,'SELECCIONA UNA CANTIDAD DE PACK');
    }
   }
 

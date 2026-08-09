@@ -27,6 +27,20 @@ if(!empty($photo['set_id'])&&(!empty($photo['individual_enabled'])||$packOptions
   <em class="smart-mode"><?=!empty($photo['individual_enabled'])?'VALOR INDIVIDUAL':'ELIGE UN PACK'?></em>
  </div>
 
+ <div class="mobile-photo-picker">
+  <div class="mobile-picker-image">
+   <img id="mobileSelectionImage" src="<?=preview_url($photo)?>" alt="<?=htmlspecialchars($photo['title'])?>">
+   <span aria-hidden="true">ULTRA</span>
+   <div><small id="mobileSelectionPosition">FOTO 1 DE <?=count($related)?></small><strong id="mobileSelectionTitle"><?=htmlspecialchars($photo['title'])?></strong></div>
+  </div>
+  <div class="mobile-picker-summary">
+   <span><small>SELECCIÓN</small><b><strong class="mobile-picker-count">1</strong> <?=count($related)===1?'FOTO':'FOTOS'?></b></span>
+   <em class="mobile-picker-mode"><?=!empty($photo['individual_enabled'])?'VALOR INDIVIDUAL':'ELIGE UN PACK'?></em>
+   <span class="mobile-picker-price"><small>TOTAL</small><b class="mobile-picker-total"><?=money((int)$photo['price'])?></b></span>
+  </div>
+  <button class="mobile-picker-submit" type="submit">AGREGAR SELECCIÓN AL CARRITO →</button>
+ </div>
+
  <div class="selector-preview-hint"><span>VISTA PREVIA</span>Pasa el cursor o toca una imagen para verla en grande</div>
  <div class="photo-selector smart-selector">
   <?php foreach($related as $n=>$r):?>
@@ -44,6 +58,6 @@ if(!empty($photo['set_id'])&&(!empty($photo['individual_enabled'])||$packOptions
  </div>
 
  <p class="smart-help"><?=$packOptions?'El precio del pack se aplicará automáticamente al alcanzar una de las cantidades indicadas.':'Las fotografías se calcularán según su valor individual.'?></p>
- <button type="submit">AGREGAR SELECCIÓN AL CARRITO →</button>
+ <button class="desktop-selection-submit" type="submit">AGREGAR SELECCIÓN AL CARRITO →</button>
 </form>
 <?php endif;?>
