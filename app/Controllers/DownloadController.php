@@ -30,7 +30,7 @@ final class DownloadController
         if(!$ids)$this->denied();$marks=implode(',',array_fill(0,count($ids),'?'));
         $s=Database::db()->prepare("SELECT id,original_path FROM photos WHERE id IN ($marks) AND download_enabled=1");$s->execute($ids);$photos=$s->fetchAll();if(count($photos)!==count($ids))$this->denied();return $photos;
     }
-    private function setPhotos(int $setId):array{$s=Database::db()->prepare("SELECT id,original_path FROM photos WHERE set_id=? AND status='active' AND download_enabled=1");$s->execute([$setId]);$photos=$s->fetchAll();if(!$photos)$this->denied();return $photos;}
+    private function setPhotos(int $setId):array{$s=Database::db()->prepare("SELECT id,original_path FROM photos WHERE set_id=? AND download_enabled=1");$s->execute([$setId]);$photos=$s->fetchAll();if(!$photos)$this->denied();return $photos;}
     private function sendPhoto(array|false $p,int $id):never{$root=realpath(ROOT.'/storage/originals');$file=$p?realpath(ROOT.'/'.ltrim($p['original_path'],'/')):false;if(!$p||!$p['download_enabled']||!$root||!$file||!str_starts_with($file,$root.DIRECTORY_SEPARATOR)||!is_file($file))$this->denied();header('Content-Type: application/octet-stream');header('Content-Disposition: attachment; filename="ultra-fotografia-'.$id.'.'.pathinfo($file,PATHINFO_EXTENSION).'"');header('Content-Length: '.filesize($file));$this->headers();readfile($file);exit;}
     private function sendZip(array $photos,string $name):never
     {
