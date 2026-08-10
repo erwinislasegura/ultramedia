@@ -11,6 +11,7 @@
         <link rel="stylesheet" href="<?= url('assets/admin-upload.css') ?>">
         <link rel="stylesheet" href="<?= url('assets/admin-packs.css') ?>">
         <link rel="stylesheet" href="<?= url('assets/admin-set-gallery.css') ?>">
+        <link rel="stylesheet" href="<?= url('assets/admin-watermark.css') ?>">
     <?php endif; ?>
     <link rel="stylesheet" href="<?= url('assets/admin-users.css') ?>">
     <link rel="stylesheet" href="<?= url('assets/admin-modules.css') ?>">
@@ -92,6 +93,12 @@
         <script src="<?= url('assets/admin-dashboard.js') ?>"></script>
     <?php endif; ?>
     <?php if ($section === 'photos'): ?>
+        <script>
+            window.ultraWatermarkConfig = <?= json_encode([
+                'scale' => (int)($photo['watermark_scale'] ?? 90),
+                'opacity' => (int)($photo['watermark_opacity'] ?? 65),
+            ], JSON_UNESCAPED_SLASHES) ?>;
+        </script>
         <script src="<?= url('assets/admin-upload.js') ?>"></script>
     <?php endif; ?>
     <?php if ($section === 'events'): ?>
