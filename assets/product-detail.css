@@ -240,3 +240,40 @@
  .product-detail--without-cover .product-heading h1{font-size:33px}
  .product-detail--without-cover .mobile-picker-submit{right:9px;bottom:calc(8px + env(safe-area-inset-bottom));left:9px;min-height:53px!important}
 }
+
+/* Fotografías amplias en el selector de escritorio. */
+@media(min-width:851px){
+ .product-detail--without-cover .photo-selector,
+ .product-detail--without-cover .photo-selector.smart-selector{
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:14px;
+  max-height:min(76vh,820px);
+  padding:3px 9px 3px 3px;
+  scroll-snap-type:y proximity;
+ }
+ .product-detail--without-cover .photo-selector label{
+  padding:7px;
+  scroll-snap-align:start;
+ }
+ .product-detail--without-cover .photo-selector label>span{
+  width:100%;
+  height:auto;
+  aspect-ratio:16/10;
+ }
+ .product-detail--without-cover .photo-selector label>span i{
+  top:9px;
+  right:9px;
+  width:30px;
+  height:30px;
+  font-size:14px;
+  line-height:30px;
+ }
+ .product-detail--without-cover .photo-selector label>small{
+  margin:8px 4px 0;
+  font-size:9px;
+ }
+ .product-detail--without-cover .photo-selector label>b{
+  margin:4px 4px 2px;
+  font-size:18px;
+ }
+}
