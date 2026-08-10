@@ -61,6 +61,42 @@ final class StoreController
         view('store/index', compact('events', 'sets', 'catalogSets', 'setPreviews', 'cta', 'hero', 'bodyClass'));
     }
 
+    public function heroImage(): never
+    {
+        $hero = Database::db()->query("SELECT background_url,updated_at FROM homepage_hero WHERE id=1")->fetch();
+        $path = trim((string)($hero['background_url'] ?? ''));
+        if ($path === '' || preg_match('~^https?://~i', $path)) {
+            http_response_code(404);
+            exit('Imagen del hero no disponible');
+        }
+
+        $storageRoot = realpath(ROOT.'/storage/hero');
+        $file = realpath(ROOT.'/'.ltrim($path, '/'));
+        if (
+            !$storageRoot ||
+            !$file ||
+            !str_starts_with($file, $storageRoot.DIRECTORY_SEPARATOR) ||
+            !is_file($file)
+        ) {
+            http_response_code(404);
+            exit('Imagen del hero no disponible');
+        }
+
+        $mime = mime_content_type($file) ?: 'application/octet-stream';
+        if (!in_array($mime, ['image/jpeg', 'image/png', 'image/webp'], true)) {
+            http_response_code(415);
+            exit('Formato de imagen no permitido');
+        }
+
+        header('Content-Type: '.$mime);
+        header('Content-Length: '.filesize($file));
+        header('Content-Disposition: inline; filename="hero.'.pathinfo($file, PATHINFO_EXTENSION).'"');
+        header('Cache-Control: public, max-age=300, must-revalidate');
+        header('X-Content-Type-Options: nosniff');
+        readfile($file);
+        exit;
+    }
+
     public function events(): void
     {
         view('store/events', [
