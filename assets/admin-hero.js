@@ -7,7 +7,7 @@ function refreshHeroPreview(){
  preview.querySelectorAll('[data-preview]').forEach(node=>node.textContent=data.get(node.dataset.preview)||'');
  const opacity=Math.max(20,Math.min(95,Number(data.get('overlay_opacity'))||75));
  let image=String(data.get('background_url')||'');
- if(image&&!/^https?:\/\//i.test(image))image=`${preview.dataset.baseUrl}${image.replace(/^\//,'')}`;
+ if(image&&!/^https?:\/\//i.test(image))image=`${preview.dataset.baseUrl}hero-imagen?v=${Date.now()}`;
  image=image.replace(/["'()]/g,encodeURIComponent);
  preview.style.backgroundImage=`linear-gradient(90deg,rgba(8,10,11,${Math.min(.98,opacity/100+.18)}),rgba(8,10,11,${opacity/100}) 55%,rgba(8,10,11,${Math.max(.08,opacity/100-.55)})),url("${image}")`;
  preview.style.backgroundPosition=data.get('background_position')||'center center';
