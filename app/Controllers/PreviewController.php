@@ -1,4 +1,53 @@
 <?php
 namespace App\Controllers;
 use App\Core\Database;
-final class PreviewController{public function file():never{$s=Database::db()->prepare('SELECT p.preview_path,p.status,ps.status set_status FROM photos p LEFT JOIN photo_sets ps ON ps.id=p.set_id WHERE p.id=?');$s->execute([(int)($_GET['id']??0)]);$photo=$s->fetch();if(!$photo){http_response_code(404);exit('Vista previa no disponible');}$visible=($photo['set_status']??null)==='active'||(($photo['set_status']??null)===null&&$photo['status']==='active');if(!$visible&&!admin_user()){http_response_code(404);exit('Vista previa no disponible');}$path=$photo['preview_path'];if(preg_match('~^https?://~',$path)){header('Location: '.$path);exit;}$file=ROOT.'/'.ltrim($path,'/');$root=realpath(ROOT.'/storage/previews');$real=realpath($file);if(!$root||!$real||!str_starts_with($real,$root.DIRECTORY_SEPARATOR)||!is_file($real)){http_response_code(404);exit('Vista previa no disponible');}header('Content-Type: '.(mime_content_type($real)?:'image/jpeg'));header('Content-Length: '.filesize($real));header('Content-Disposition: inline; filename="vista-previa.jpg"');header('Cache-Control: private, max-age=3600');header('X-Content-Type-Options: nosniff');header("Content-Security-Policy: default-src 'none'; img-src 'self'");readfile($real);exit;}}
+final class PreviewController
+{
+    public function file(): never
+    {
+        $s = Database::db()->prepare(
+            "SELECT p.preview_path,p.status,ps.status set_status FROM photos p LEFT JOIN photo_sets ps ON ps.id=p.set_id WHERE p.id=?",
+        );
+        $s->execute([(int) ($_GET["id"] ?? 0)]);
+        $photo = $s->fetch();
+        if (!$photo) {
+            http_response_code(404);
+            exit("Vista previa no disponible");
+        }
+        $visible =
+            ($photo["set_status"] ?? null) === "active" ||
+            (($photo["set_status"] ?? null) === null &&
+                $photo["status"] === "active");
+        if (!$visible && !admin_user()) {
+            http_response_code(404);
+            exit("Vista previa no disponible");
+        }
+        $path = $photo["preview_path"];
+        if (preg_match("~^https?://~", $path)) {
+            header("Location: " . $path);
+            exit();
+        }
+        $file = ROOT . "/" . ltrim($path, "/");
+        $root = realpath(ROOT . "/storage/previews");
+        $real = realpath($file);
+        if (
+            !$root ||
+            !$real ||
+            !str_starts_with($real, $root . DIRECTORY_SEPARATOR) ||
+            !is_file($real)
+        ) {
+            http_response_code(404);
+            exit("Vista previa no disponible");
+        }
+        header("Content-Type: " . (mime_content_type($real) ?: "image/jpeg"));
+        header("Content-Length: " . filesize($real));
+        header('Content-Disposition: inline; filename="vista-previa.jpg"');
+        header("Cache-Control: private, no-store, no-cache, must-revalidate");
+        header("Pragma: no-cache");
+        header("Expires: 0");
+        header("X-Content-Type-Options: nosniff");
+        header("Content-Security-Policy: default-src 'none'; img-src 'self'");
+        readfile($real);
+        exit();
+    }
+}

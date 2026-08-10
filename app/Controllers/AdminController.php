@@ -419,6 +419,7 @@ final class AdminController
             @getimagesize($_FILES["watermark_image"]["tmp_name"])
         ) {
             $wmLogo = $_FILES["watermark_image"]["tmp_name"];
+            $watermarkChanged = true;
         }
         if (
             $watermark &&
@@ -935,6 +936,7 @@ final class AdminController
                 $targetW = max(1, (int) round($lw * $logoScale));
                 $targetH = max(1, (int) round($lh * $logoScale));
                 $scaled = imagecreatetruecolor($targetW, $targetH);
+                imagealphablending($scaled, false);
                 imagesavealpha($scaled, true);
                 imagefill(
                     $scaled,
@@ -955,6 +957,7 @@ final class AdminController
                     $lh,
                 );
                 $this->applyLogoOpacity($scaled, $logoOpacity);
+                imagealphablending($out, true);
                 imagecopy(
                     $out,
                     $scaled,
