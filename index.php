@@ -6,7 +6,7 @@ use App\Core\Router;
 $router=new Router();
 foreach([
  ['GET','/admin/login','AuthController@login'],['POST','/admin/login','AuthController@authenticate'],['POST','/admin/logout','AuthController@logout'],
- ['GET','/','StoreController@index'],['GET','/eventos','StoreController@events'],['GET','/evento','StoreController@event'],['GET','/foto','StoreController@photo'],['GET','/preguntas-frecuentes','StoreController@faq'],
+ ['GET','/','StoreController@index'],['GET','/hero-imagen','StoreController@heroImage'],['GET','/eventos','StoreController@events'],['GET','/evento','StoreController@event'],['GET','/foto','StoreController@photo'],['GET','/preguntas-frecuentes','StoreController@faq'],
  ['GET','/mi-cuenta/login','CustomerController@login'],['POST','/mi-cuenta/login','CustomerController@authenticate'],['POST','/mi-cuenta/salir','CustomerController@logout'],['GET','/mi-cuenta','CustomerController@dashboard'],['GET','/mi-cuenta/pedido','CustomerController@order'],['POST','/mi-cuenta/clave','CustomerController@password'],
  ['GET','/carrito','CartController@index'],['POST','/carrito/agregar','CartController@add'],['POST','/carrito/agregar-varias','CartController@addMany'],['POST','/carrito/agregar-pack','CartController@addPack'],['POST','/carrito/agregar-seleccion','CartController@addSelection'],['POST','/carrito/eliminar','CartController@remove'],
  ['GET','/checkout','CheckoutController@index'],['POST','/checkout','CheckoutController@process'],['POST','/pago/flow/confirmacion','CheckoutController@confirmation'],['POST','/pago/flow/retorno','CheckoutController@paymentReturn'],['GET','/pago/flow/retorno','CheckoutController@paymentReturn'],['GET','/pago/resultado','CheckoutController@result'],['GET','/gracias','CheckoutController@thanks'],
