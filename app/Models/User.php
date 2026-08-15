@@ -7,5 +7,23 @@ final class User{
  public static function roles():array{return Database::db()->query("SELECT r.*,COUNT(u.id) users_count FROM roles r LEFT JOIN users u ON u.role_id=r.id GROUP BY r.id ORDER BY r.name")->fetchAll();}
  public static function save(array $data):void{$db=Database::db();$id=(int)($data['id']??0);if($id){$sql='UPDATE users SET name=?,email=?,role_id=?,status=?';$args=[$data['name'],$data['email'],(int)$data['role_id'],$data['status']];if(!empty($data['password'])){$sql.=',password_hash=?';$args[]=password_hash($data['password'],PASSWORD_DEFAULT);}$sql.=' WHERE id=?';$args[]=$id;$db->prepare($sql)->execute($args);return;}$db->prepare('INSERT INTO users(role_id,name,email,password_hash,status) VALUES(?,?,?,?,?)')->execute([(int)$data['role_id'],$data['name'],$data['email'],password_hash($data['password'],PASSWORD_DEFAULT),$data['status']]);}
  public static function delete(int $id):void{Database::db()->prepare('DELETE FROM users WHERE id=?')->execute([$id]);}
- public static function saveRole(array $data):void{$permissions=json_encode(array_values($data['permissions']??[]),JSON_UNESCAPED_UNICODE);$id=(int)($data['id']??0);if($id){Database::db()->prepare('UPDATE roles SET name=?,permissions=? WHERE id=? AND is_system=0')->execute([$data['name'],$permissions,$id]);return;}$slug=strtolower(trim(preg_replace('/[^a-z0-9]+/i','-',$data['name']),'-'));Database::db()->prepare('INSERT INTO roles(name,slug,permissions) VALUES(?,?,?)')->execute([$data['name'],$slug,$permissions]);}
+ public static function saveRole(array $data):int{
+  $db=Database::db();
+  $permissions=json_encode(array_values(array_unique($data['permissions']??[])),JSON_UNESCAPED_UNICODE);
+  $id=(int)($data['id']??0);
+  if($id){
+   $statement=$db->prepare('UPDATE roles SET name=?,permissions=? WHERE id=?');
+   $statement->execute([$data['name'],$permissions,$id]);
+   if($statement->rowCount()===0){
+    $exists=$db->prepare('SELECT id FROM roles WHERE id=?');
+    $exists->execute([$id]);
+    if(!$exists->fetchColumn())throw new \RuntimeException('El rol no existe.');
+   }
+   return $id;
+  }
+  $slug=strtolower(trim(preg_replace('/[^a-z0-9]+/i','-',$data['name']),'-'));
+  if($slug==='')$slug='rol-'.bin2hex(random_bytes(3));
+  $db->prepare('INSERT INTO roles(name,slug,permissions) VALUES(?,?,?)')->execute([$data['name'],$slug,$permissions]);
+  return (int)$db->lastInsertId();
+ }
 }
