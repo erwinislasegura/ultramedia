@@ -33,8 +33,8 @@ CREATE TABLE email_settings(id TINYINT UNSIGNED PRIMARY KEY,active TINYINT(1) NO
 CREATE TABLE homepage_hero(id TINYINT UNSIGNED PRIMARY KEY,eyebrow VARCHAR(120) NOT NULL,title VARCHAR(180) NOT NULL,highlight VARCHAR(120) NOT NULL,description VARCHAR(500) NULL,search_placeholder VARCHAR(160) NOT NULL,button_text VARCHAR(80) NOT NULL,background_url VARCHAR(500) NOT NULL,background_position VARCHAR(40) NOT NULL DEFAULT 'center center',overlay_opacity TINYINT UNSIGNED NOT NULL DEFAULT 75,trust_one VARCHAR(100) NULL,trust_two VARCHAR(100) NULL,trust_three VARCHAR(100) NULL,updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP) ENGINE=InnoDB;
 INSERT INTO homepage_hero(id,eyebrow,title,highlight,description,search_placeholder,button_text,background_url,background_position,overlay_opacity,trust_one,trust_two,trust_three) VALUES(1,'TU ESFUERZO. TU MOMENTO.','ENCUENTRA TU','MEJOR FOTO.','Compra una fotografía específica o descarga el set completo de tu participación.','Número de competidor o evento…','BUSCAR MIS FOTOS','https://images.unsplash.com/photo-1552674605-db6ffd4facb5?auto=format&fit=crop&w=1900&q=90','center center',75,'▧ Calidad profesional','↓ Foto o set completo','◇ Pago seguro Flow');
 INSERT INTO roles(name,slug,permissions,is_system) VALUES
-('Administrador','administrador',JSON_ARRAY('dashboard.view','photos.manage','orders.manage','users.manage','roles.manage'),1),
-('Editor fotográfico','editor-fotografico',JSON_ARRAY('dashboard.view','photos.manage'),1),
+('Administrador','administrador',JSON_ARRAY('dashboard.view','events.manage','photos.manage','orders.manage','homepage.manage','payments.manage','email.manage','users.manage','roles.manage'),1),
+('Editor fotográfico','editor-fotografico',JSON_ARRAY('dashboard.view','events.manage','photos.manage'),1),
 ('Ventas','ventas',JSON_ARRAY('dashboard.view','orders.manage'),1);
 INSERT INTO events(name,slug,sport,event_date,location) VALUES
 ('Trail Volcán Antuco','trail-volcan-antuco','Running','2026-08-02','Antuco'),
@@ -65,4 +65,3 @@ INSERT INTO orders(customer_name,customer_email,total,status,download_token,paid
 ('Valentina Díaz','vale@example.com',14970,'paid','demo00000000000000000000000000000000000000000003',NOW());
 INSERT INTO order_items(order_id,photo_id,unit_price) VALUES(1,1,4990),(1,2,4990),(2,3,4990),(3,4,4990),(3,5,4990),(3,6,4990);
 INSERT INTO homepage_cta(id,event_id,eyebrow,title,description,button_text,button_url,image_url,active) VALUES(1,1,'EVENTO DESTACADO','TRAIL VOLCÁN ANTUCO 2026','Ya están disponibles las fotografías oficiales del evento.','VER FOTOGRAFÍAS','#fotos','https://images.unsplash.com/photo-1552674605-db6ffd4facb5?auto=format&fit=crop&w=1800&q=88',1);
-

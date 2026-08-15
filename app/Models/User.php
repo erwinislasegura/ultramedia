@@ -3,8 +3,10 @@ namespace App\Models;
 use App\Core\Database;
 final class User{
  public static function authenticate(string $email,string $password):?array{$s=Database::db()->prepare("SELECT u.*,r.name role_name,r.slug role_slug,r.permissions FROM users u JOIN roles r ON r.id=u.role_id WHERE u.email=? AND u.status='active' LIMIT 1");$s->execute([$email]);$u=$s->fetch();if(!$u||!password_verify($password,$u['password_hash']))return null;Database::db()->prepare('UPDATE users SET last_login_at=NOW() WHERE id=?')->execute([$u['id']]);return $u;}
+ public static function accessSnapshot(int $userId):?array{$s=Database::db()->prepare("SELECT u.id,u.role_id,u.name,u.email,u.status,r.name role_name,r.slug role_slug,r.permissions FROM users u JOIN roles r ON r.id=u.role_id WHERE u.id=? AND u.status='active' LIMIT 1");$s->execute([$userId]);$access=$s->fetch();return $access?:null;}
  public static function all():array{return Database::db()->query("SELECT u.id,u.role_id,u.name,u.email,u.status,u.last_login_at,u.created_at,r.name role_name,r.slug role_slug FROM users u JOIN roles r ON r.id=u.role_id ORDER BY u.id DESC")->fetchAll();}
  public static function roles():array{return Database::db()->query("SELECT r.*,COUNT(u.id) users_count FROM roles r LEFT JOIN users u ON u.role_id=r.id GROUP BY r.id ORDER BY r.name")->fetchAll();}
+ public static function role(int $id):?array{$s=Database::db()->prepare('SELECT * FROM roles WHERE id=? LIMIT 1');$s->execute([$id]);$role=$s->fetch();return $role?:null;}
  public static function save(array $data):void{$db=Database::db();$id=(int)($data['id']??0);if($id){$sql='UPDATE users SET name=?,email=?,role_id=?,status=?';$args=[$data['name'],$data['email'],(int)$data['role_id'],$data['status']];if(!empty($data['password'])){$sql.=',password_hash=?';$args[]=password_hash($data['password'],PASSWORD_DEFAULT);}$sql.=' WHERE id=?';$args[]=$id;$db->prepare($sql)->execute($args);return;}$db->prepare('INSERT INTO users(role_id,name,email,password_hash,status) VALUES(?,?,?,?,?)')->execute([(int)$data['role_id'],$data['name'],$data['email'],password_hash($data['password'],PASSWORD_DEFAULT),$data['status']]);}
  public static function delete(int $id):void{Database::db()->prepare('DELETE FROM users WHERE id=?')->execute([$id]);}
  public static function saveRole(array $data):int{
@@ -25,5 +27,15 @@ final class User{
   if($slug==='')$slug='rol-'.bin2hex(random_bytes(3));
   $db->prepare('INSERT INTO roles(name,slug,permissions) VALUES(?,?,?)')->execute([$data['name'],$slug,$permissions]);
   return (int)$db->lastInsertId();
+ }
+ public static function deleteRole(int $id):void{
+  $db=Database::db();
+  $role=self::role($id);
+  if(!$role)throw new \DomainException('El rol ya no existe.');
+  if(($role['slug']??'')==='administrador')throw new \DomainException('El rol Administrador está protegido y no se puede eliminar.');
+  $users=$db->prepare('SELECT COUNT(*) FROM users WHERE role_id=?');
+  $users->execute([$id]);
+  if((int)$users->fetchColumn()>0)throw new \DomainException('Este rol tiene usuarios asignados. Reasígnalos antes de eliminarlo.');
+  $db->prepare("DELETE FROM roles WHERE id=? AND slug<>'administrador'")->execute([$id]);
  }
 }

@@ -14,6 +14,8 @@
         document.getElementById('roleId').value = '';
         document.getElementById('roleName').value = '';
         document.querySelectorAll('.role-permission').forEach(input => { input.checked = false; });
+        const note = document.getElementById('systemRoleNote');
+        if (note) note.hidden = true;
     };
     document.querySelectorAll('[data-create-user]').forEach(button => button.addEventListener('click', resetUserForm));
     document.querySelectorAll('[data-create-role]').forEach(button => button.addEventListener('click', resetRoleForm));
@@ -37,6 +39,8 @@
         document.getElementById('roleId').value = role.id;
         document.getElementById('roleName').value = role.name;
         document.querySelectorAll('.role-permission').forEach(input => { input.checked = Array.isArray(role.permissions) && role.permissions.includes(input.value); });
+        const note = document.getElementById('systemRoleNote');
+        if (note) note.hidden = role.slug !== 'administrador';
         openModal('roleModal');
     }));
     document.addEventListener('keydown', event => { if (event.key === 'Escape') closeModal(document.querySelector('.admin-modal.show')); });

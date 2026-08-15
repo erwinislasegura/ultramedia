@@ -1,6 +1,6 @@
 INSERT INTO roles(name,slug,permissions,is_system) VALUES
-('Administrador','administrador',JSON_ARRAY('dashboard.view','photos.manage','orders.manage','users.manage','roles.manage'),1),
-('Editor fotográfico','editor-fotografico',JSON_ARRAY('dashboard.view','photos.manage'),1),
+('Administrador','administrador',JSON_ARRAY('dashboard.view','events.manage','photos.manage','orders.manage','homepage.manage','payments.manage','email.manage','users.manage','roles.manage'),1),
+('Editor fotográfico','editor-fotografico',JSON_ARRAY('dashboard.view','events.manage','photos.manage'),1),
 ('Ventas','ventas',JSON_ARRAY('dashboard.view','orders.manage'),1);
 INSERT INTO events(name,slug,sport,event_date,location) VALUES
 ('Trail Volcán Antuco','trail-volcan-antuco','Running','2026-08-02','Antuco'),

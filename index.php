@@ -16,6 +16,7 @@ foreach([
  ['POST','/admin/fotos/estado','AdminController@togglePhotoStatus'],['POST','/admin/fotos/eliminar','AdminController@deletePhoto'],
  ['GET','/admin/usuarios','UserController@index'],['POST','/admin/usuarios/guardar','UserController@save'],
  ['POST','/admin/usuarios/eliminar','UserController@delete'],['POST','/admin/roles/guardar','UserController@saveRole'],
+ ['POST','/admin/roles/eliminar','UserController@deleteRole'],
  ['GET','/admin/pedidos','OrderController@index'],['POST','/admin/pedidos/estado','OrderController@status'],
  ['GET','/admin/eventos','EventController@index'],['POST','/admin/eventos/guardar','EventController@save'],['POST','/admin/eventos/estado','EventController@status'],['POST','/admin/eventos/eliminar','EventController@delete'],
  ['GET','/admin/cta','CtaController@index'],['POST','/admin/cta','CtaController@save'],['GET','/admin/hero','HeroController@index'],['POST','/admin/hero','HeroController@save'],['GET','/admin/flow','FlowSettingsController@index'],['POST','/admin/flow','FlowSettingsController@save'],['GET','/admin/correo','EmailSettingsController@index'],['POST','/admin/correo','EmailSettingsController@save']

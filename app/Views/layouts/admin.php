@@ -43,20 +43,38 @@
             <span>PANEL ADMIN</span>
         </a>
         <nav>
+            <?php if (admin_can_any(['dashboard.view', 'events.manage', 'photos.manage', 'orders.manage'])): ?>
             <small>GESTIÓN</small>
+            <?php if (admin_can('dashboard.view')): ?>
             <a class="<?= $section === 'dashboard' ? 'active' : '' ?>" href="<?= url('admin') ?>"><i>▦</i> Resumen</a>
+            <?php endif; ?>
+            <?php if (admin_can('events.manage')): ?>
             <a class="<?= $section === 'events' ? 'active' : '' ?>" href="<?= url('admin/eventos') ?>"><i>◫</i> Eventos</a>
+            <?php endif; ?>
+            <?php if (admin_can('photos.manage')): ?>
             <a class="<?= $section === 'photos' ? 'active' : '' ?>" href="<?= url('admin/fotos') ?>"><i>↑</i> Subir fotografías</a>
-            <a href="#"><i>▧</i> Galerías</a>
+            <?php endif; ?>
+            <?php if (admin_can('orders.manage')): ?>
             <a class="<?= $section === 'orders' ? 'active' : '' ?>" href="<?= url('admin/pedidos') ?>"><i>◇</i> Pedidos</a>
+            <?php endif; ?>
+            <?php endif; ?>
 
+            <?php if (admin_can_any(['homepage.manage', 'payments.manage', 'email.manage', 'users.manage', 'roles.manage'])): ?>
             <small>CONFIGURACIÓN</small>
+            <?php if (admin_can('homepage.manage')): ?>
             <a class="<?= $section === 'hero' ? 'active' : '' ?>" href="<?= url('admin/hero') ?>"><i>▣</i> Hero de portada</a>
             <a class="<?= $section === 'cta' ? 'active' : '' ?>" href="<?= url('admin/cta') ?>"><i>★</i> CTA de portada</a>
+            <?php endif; ?>
+            <?php if (admin_can('payments.manage')): ?>
             <a class="<?= $section === 'flow' ? 'active' : '' ?>" href="<?= url('admin/flow') ?>"><i>◇</i> Pasarela Flow</a>
+            <?php endif; ?>
+            <?php if (admin_can('email.manage')): ?>
             <a class="<?= $section === 'email' ? 'active' : '' ?>" href="<?= url('admin/correo') ?>"><i>@</i> Correo SMTP</a>
+            <?php endif; ?>
+            <?php if (admin_can_any(['users.manage', 'roles.manage'])): ?>
             <a class="<?= $section === 'users' ? 'active' : '' ?>" href="<?= url('admin/usuarios') ?>"><i>◎</i> Usuarios y roles</a>
-            <a href="#"><i>⚙</i> Ajustes</a>
+            <?php endif; ?>
+            <?php endif; ?>
         </nav>
         <div class="user">
             <span><?= strtoupper(substr(admin_user()['name'] ?? 'A', 0, 2)) ?></span>

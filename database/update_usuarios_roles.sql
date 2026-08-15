@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS users(
  CONSTRAINT fk_user_role FOREIGN KEY(role_id) REFERENCES roles(id)
 ) ENGINE=InnoDB;
 INSERT INTO roles(name,slug,permissions,is_system) VALUES
-('Administrador','administrador',JSON_ARRAY('dashboard.view','photos.manage','orders.manage','users.manage','roles.manage'),1),
-('Editor fotográfico','editor-fotografico',JSON_ARRAY('dashboard.view','photos.manage'),1),
+('Administrador','administrador',JSON_ARRAY('dashboard.view','events.manage','photos.manage','orders.manage','homepage.manage','payments.manage','email.manage','users.manage','roles.manage'),1),
+('Editor fotográfico','editor-fotografico',JSON_ARRAY('dashboard.view','events.manage','photos.manage'),1),
 ('Ventas','ventas',JSON_ARRAY('dashboard.view','orders.manage'),1)
 ON DUPLICATE KEY UPDATE name=VALUES(name),permissions=VALUES(permissions);
